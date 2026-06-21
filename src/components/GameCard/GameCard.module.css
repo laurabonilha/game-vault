@@ -20,6 +20,7 @@
   aspect-ratio: 3 / 4;
   overflow: hidden;
   background: var(--color-bg-hover);
+  position: relative;
 }
 
 .capaImg {
@@ -30,7 +31,51 @@
 }
 
 .card:hover .capaImg {
-  transform: scale(1.04);
+  transform: scale(1.06);
+}
+
+.capaOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(13, 10, 11, 0.88) 0%,
+    rgba(13, 10, 11, 0.3) 50%,
+    transparent 100%
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: var(--space-md);
+  gap: 6px;
+  opacity: 0;
+  transition: var(--transition);
+}
+
+.card:hover .capaOverlay {
+  opacity: 1;
+}
+
+.overlayTexto {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+.overlayIcone {
+  font-size: 20px;
+  color: var(--color-gold);
+  opacity: 0.9;
+  transform: translateY(4px);
+  transition: var(--transition);
+}
+
+.card:hover .overlayIcone {
+  transform: translateY(0);
 }
 
 .capaPlaceholder {

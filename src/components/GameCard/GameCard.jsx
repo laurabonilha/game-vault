@@ -16,6 +16,10 @@ function GameCard({ id, nome, plataforma, genero, status, nota, capa }) {
             <span className={styles.capaIcon}>🎮</span>
           </div>
         )}
+        <div className={styles.capaOverlay}>
+          <span className={styles.overlayTexto}>Ver detalhes</span>
+          <span className={styles.overlayIcone}>⚔</span>
+        </div>
       </div>
 
       <div className={styles.info}>
