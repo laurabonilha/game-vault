@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
 import Header from '../../components/Header/Header'
+import usePageTitle from '../../hooks/usePageTitle'
 import GameCard from '../../components/GameCard/GameCard'
 import jogosData from '../../data/jogos.json'
 import styles from './Home.module.css'
 
 function Home() {
+  usePageTitle(null)
   const [jogos, setJogos] = useState([])
   const [loading, setLoading] = useState(true)
 

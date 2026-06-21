@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import Header from '../../components/Header/Header'
+import usePageTitle from '../../hooks/usePageTitle'
 import StatusBadge from '../../components/StatusBadge/StatusBadge'
 import StarRating from '../../components/StarRating/StarRating'
 import GameCard from '../../components/GameCard/GameCard'
@@ -12,6 +13,7 @@ function DetalheJogo() {
   const navigate = useNavigate()
   const [jogo, setJogo] = useState(null)
   const [loading, setLoading] = useState(true)
+  usePageTitle(jogo ? jogo.nome : 'Carregando...')
 
   useEffect(() => {
     const timer = setTimeout(() => {

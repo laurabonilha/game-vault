@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import Header from '../../components/Header/Header'
+import usePageTitle from '../../hooks/usePageTitle'
 import GameCard from '../../components/GameCard/GameCard'
 import FilterChip from '../../components/FilterChip/FilterChip'
 import EmptyState from '../../components/EmptyState/EmptyState'
@@ -16,6 +17,7 @@ const STATUS_FILTROS = [
 ]
 
 function Acervo() {
+  usePageTitle('Acervo')
   const [jogos, setJogos] = useState([])
   const [loading, setLoading] = useState(true)
   const [busca, setBusca] = useState('')

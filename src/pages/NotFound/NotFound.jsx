@@ -1,8 +1,10 @@
 import { useNavigate } from 'react-router-dom'
 import Header from '../../components/Header/Header'
+import usePageTitle from '../../hooks/usePageTitle'
 import styles from './NotFound.module.css'
 
 function NotFound() {
+  usePageTitle('404 — Game Over')
   const navigate = useNavigate()
 
   return (
