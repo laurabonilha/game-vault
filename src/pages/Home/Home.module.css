@@ -48,13 +48,37 @@
   text-align: center;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: var(--space-xs);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.statCard::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at top, rgba(201,168,76,0.05), transparent 70%);
+  opacity: 0;
   transition: var(--transition);
 }
 
 .statCard:hover {
   border: var(--border-card-hover);
-  box-shadow: var(--shadow-card);
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
+}
+
+.statCard:hover::before {
+  opacity: 1;
+}
+
+.statIcon {
+  font-size: 28px;
+  margin-bottom: var(--space-xs);
+  filter: grayscale(0.2);
+  line-height: 1;
 }
 
 .statValue {
@@ -65,10 +89,11 @@
 }
 
 .statLabel {
-  font-size: 12px;
-  letter-spacing: 1px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
   color: var(--color-text-muted);
+  margin-top: 2px;
 }
 
 /* Seções */
