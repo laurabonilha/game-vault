@@ -1,0 +1,193 @@
+.page {
+  min-height: 100vh;
+  background: var(--color-bg-primary);
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 80px var(--space-lg) var(--space-xl);
+  text-align: center;
+  gap: var(--space-lg);
+}
+
+/* 404 fantasma */
+.codigo {
+  font-family: var(--font-title);
+  font-size: clamp(80px, 18vw, 160px);
+  color: var(--color-gold);
+  opacity: 0.06;
+  line-height: 1;
+  position: absolute;
+  pointer-events: none;
+  letter-spacing: 12px;
+}
+
+/* Você morreu */
+.morreu {
+  font-family: var(--font-title);
+  font-size: clamp(22px, 5vw, 36px);
+  color: var(--color-error);
+  letter-spacing: 8px;
+  opacity: 0.9;
+  animation: flicker 3s ease-in-out infinite;
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 0.9; }
+  45%       { opacity: 0.9; }
+  50%       { opacity: 0.4; }
+  55%       { opacity: 0.9; }
+  75%       { opacity: 0.9; }
+  80%       { opacity: 0.6; }
+  85%       { opacity: 0.9; }
+}
+
+/* Cena da fogueira */
+.cena {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 20px;
+  height: 120px;
+  position: relative;
+}
+
+.guerreiro {
+  font-size: 52px;
+  filter: brightness(0.5) sepia(1) hue-rotate(0deg);
+  opacity: 0.7;
+  transform: scaleX(-1);
+  animation: respirar 4s ease-in-out infinite;
+  align-self: flex-end;
+}
+
+@keyframes respirar {
+  0%, 100% { transform: scaleX(-1) translateY(0); }
+  50%       { transform: scaleX(-1) translateY(-3px); }
+}
+
+/* Fogueira */
+.fogueiraWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chamas {
+  position: relative;
+  width: 40px;
+  height: 70px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.chama {
+  position: absolute;
+  bottom: 0;
+  border-radius: 50% 50% 20% 20%;
+  transform-origin: bottom center;
+}
+
+.chama1 {
+  width: 24px;
+  height: 60px;
+  background: linear-gradient(to top, #E6A817, #C0392B);
+  animation: queimar1 1.2s ease-in-out infinite alternate;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.95;
+}
+
+.chama2 {
+  width: 16px;
+  height: 48px;
+  background: linear-gradient(to top, #F0C040, #E6A817);
+  animation: queimar2 0.9s ease-in-out infinite alternate;
+  left: 50%;
+  transform: translateX(-60%);
+  opacity: 0.85;
+}
+
+.chama3 {
+  width: 14px;
+  height: 36px;
+  background: linear-gradient(to top, #fff5c0, #F0C040);
+  animation: queimar3 1.5s ease-in-out infinite alternate;
+  left: 50%;
+  transform: translateX(-30%);
+  opacity: 0.9;
+}
+
+.brasa {
+  position: absolute;
+  bottom: 2px;
+  width: 30px;
+  height: 8px;
+  background: radial-gradient(ellipse, #F0C040, #C0392B 60%, transparent);
+  border-radius: 50%;
+  animation: brasa 1s ease-in-out infinite alternate;
+  z-index: 2;
+}
+
+@keyframes queimar1 {
+  0%   { height: 60px; transform: translateX(-50%) rotate(-3deg); }
+  100% { height: 50px; transform: translateX(-50%) rotate(3deg); }
+}
+@keyframes queimar2 {
+  0%   { height: 48px; transform: translateX(-60%) rotate(5deg); }
+  100% { height: 38px; transform: translateX(-50%) rotate(-4deg); }
+}
+@keyframes queimar3 {
+  0%   { height: 36px; transform: translateX(-30%) rotate(-6deg); }
+  100% { height: 28px; transform: translateX(-40%) rotate(4deg); }
+}
+@keyframes brasa {
+  0%   { opacity: 0.8; width: 30px; }
+  100% { opacity: 1;   width: 36px; }
+}
+
+.tronco {
+  width: 48px;
+  height: 10px;
+  background: linear-gradient(to right, #3d2b1f, #5c3d2a, #3d2b1f);
+  border-radius: 4px;
+  position: relative;
+  z-index: 3;
+}
+
+.glow {
+  width: 80px;
+  height: 20px;
+  background: radial-gradient(ellipse, rgba(240,192,64,0.3), transparent 70%);
+  border-radius: 50%;
+  margin-top: -4px;
+  animation: brilho 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes brilho {
+  0%   { opacity: 0.6; transform: scaleX(0.9); }
+  100% { opacity: 1;   transform: scaleX(1.1); }
+}
+
+/* Textos */
+.titulo {
+  font-family: var(--font-title);
+  font-size: clamp(18px, 3vw, 26px);
+  color: var(--color-text-title);
+  letter-spacing: 2px;
+  max-width: 480px;
+}
+
+.mensagem {
+  font-family: var(--font-mono);
+  font-size: 17px;
+  color: var(--color-text-muted);
+  max-width: 440px;
+  line-height: 1.7;
+}
