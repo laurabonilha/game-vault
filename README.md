@@ -114,4 +114,4 @@ Conceito visual **"Tavern & Scrolls"** — tema escuro com acentos dourados enve
 
 ## Autora
 
-Desenvolvido por **Laura Bonilha** — PUC Rio, 2025.
+Desenvolvido por **Laura Bonilha** — 2026.
