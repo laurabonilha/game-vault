@@ -1,0 +1,89 @@
+.page {
+  min-height: 100vh;
+  background: var(--color-bg-primary);
+}
+
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 88px var(--space-lg) var(--space-xl);
+}
+
+.titulo {
+  font-family: var(--font-title);
+  font-size: 28px;
+  color: var(--color-text-title);
+  letter-spacing: 3px;
+  margin-bottom: var(--space-lg);
+}
+
+/* Busca */
+.buscaWrapper {
+  position: relative;
+  margin-bottom: var(--space-lg);
+}
+
+.buscaIcon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.busca {
+  padding-left: 36px;
+}
+
+/* Filtros */
+.filtrosGrupo {
+  margin-bottom: var(--space-md);
+}
+
+.filtrosLabel {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  color: var(--color-text-muted);
+  letter-spacing: 1px;
+  display: block;
+  margin-bottom: var(--space-sm);
+}
+
+.filtrosLabel::before {
+  content: '> ';
+  color: rgba(201, 168, 76, 0.5);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .main {
+    padding: 88px var(--space-md) var(--space-xl);
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-sm);
+  }
+}
