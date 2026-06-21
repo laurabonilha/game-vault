@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=VT323&family=Rajdhani:wght@400;500&display=swap');
+
+:root {
+  --color-bg-primary:        #0D0A0B;
+  --color-bg-card:           #1A1520;
+  --color-bg-hover:          #2D2438;
+
+  --color-text-primary:      #E8D5A3;
+  --color-text-muted:        #8B7355;
+  --color-text-title:        #C9A84C;
+
+  --color-gold:              #C9A84C;
+  --color-gold-bright:       #F0C040;
+
+  --color-status-zerado:     #4CAF7D;
+  --color-status-jogando:    #4A90D9;
+  --color-status-abandonado: #C0392B;
+  --color-status-querjogar:  #E6A817;
+
+  --color-success:           #4CAF7D;
+  --color-error:             #C0392B;
+  --color-warning:           #E6A817;
+
+  --border-card:             1px solid rgba(201,168,76,0.25);
+  --border-card-hover:       1px solid rgba(201,168,76,0.8);
+  --border-input:            1px solid rgba(201,168,76,0.25);
+  --border-input-focus:      1px solid #C9A84C;
+
+  --shadow-card:             0 0 12px rgba(201,168,76,0.12);
+  --shadow-card-hover:       0 0 24px rgba(201,168,76,0.28);
+
+  --font-title:              'Cinzel', serif;
+  --font-body:               'Rajdhani', sans-serif;
+  --font-mono:               'VT323', monospace;
+
+  --space-xs:  4px;
+  --space-sm:  8px;
+  --space-md:  16px;
+  --space-lg:  24px;
+  --space-xl:  48px;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  --transition: all 0.3s ease;
+}

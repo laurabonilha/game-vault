@@ -1,0 +1,119 @@
+/* Botões */
+.btn {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 9px 20px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-gold);
+  background: transparent;
+  color: var(--color-gold);
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn:hover { background: var(--color-gold); color: var(--color-bg-primary); }
+.btn-sm { font-size: 11px; padding: 6px 14px; }
+.btn-ghost { border-color: rgba(201,168,76,0.3); color: var(--color-text-muted); }
+
+/* Cards */
+.card {
+  background: var(--color-bg-card);
+  border: var(--border-card);
+  border-radius: var(--radius-md);
+  transition: var(--transition);
+}
+.card:hover {
+  border: var(--border-card-hover);
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
+}
+
+/* Inputs */
+.input {
+  width: 100%;
+  background: var(--color-bg-card);
+  border: var(--border-input);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: 14px;
+  padding: 9px 14px;
+  outline: none;
+  transition: var(--transition);
+}
+.input:focus { border: var(--border-input-focus); }
+.input::placeholder { color: var(--color-text-muted); }
+
+/* Labels estilo terminal */
+.label {
+  font-family: var(--font-mono);
+  font-size: 17px;
+  color: var(--color-text-muted);
+  display: block;
+  margin-bottom: 6px;
+  letter-spacing: 1px;
+}
+.label::before { content: '> '; color: rgba(201,168,76,0.5); }
+
+/* Badges */
+.badge {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.badge-zerado     { background: rgba(76,175,125,0.15);  color: var(--color-status-zerado);     border: 1px solid rgba(76,175,125,0.3); }
+.badge-jogando    { background: rgba(74,144,217,0.15);  color: var(--color-status-jogando);    border: 1px solid rgba(74,144,217,0.3); }
+.badge-abandonado { background: rgba(192,57,43,0.15);   color: var(--color-status-abandonado); border: 1px solid rgba(192,57,43,0.3); }
+.badge-querjogar  { background: rgba(230,168,23,0.15);  color: var(--color-status-querjogar);  border: 1px solid rgba(230,168,23,0.3); }
+
+/* Divisor ornamental */
+.divider { display: flex; align-items: center; gap: 12px; margin: 24px 0 16px; }
+.divider-line { flex: 1; height: 1px; background: rgba(201,168,76,0.2); }
+.divider-icon { color: var(--color-gold); font-size: 16px; }
+
+/* Toasts */
+.toast-success {
+  background: rgba(76,175,125,0.12);
+  border: 1px solid rgba(76,175,125,0.4);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-success);
+  font-size: 14px;
+}
+.toast-error {
+  background: rgba(192,57,43,0.12);
+  border: 1px solid rgba(192,57,43,0.4);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  color: var(--color-error);
+}
+
+/* Loader */
+.loader { display: flex; gap: 8px; justify-content: center; padding: 32px; }
+.loader-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  animation: pulse 1.2s ease-in-out infinite;
+}
+.loader-dot:nth-child(2) { animation-delay: 0.2s; }
+.loader-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes pulse { 0%,100%{opacity:0.2} 50%{opacity:1} }
+
+/* Animação de entrada */
+@keyframes fadeIn { from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:translateY(0)} }
+.fade-in { animation: fadeIn 0.4s ease forwards; }

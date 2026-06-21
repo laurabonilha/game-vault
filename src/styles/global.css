@@ -1,0 +1,21 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-title);
+  color: var(--color-text-title);
+}
+
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-bg-card); }
+::-webkit-scrollbar-thumb { background: var(--color-gold); border-radius: 3px; }
+
+a { color: var(--color-gold); text-decoration: none; transition: var(--transition); }
+a:hover { color: var(--color-gold-bright); }
