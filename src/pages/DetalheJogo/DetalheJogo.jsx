@@ -60,6 +60,16 @@ function DetalheJogo() {
     <div className={styles.page}>
       <Header />
 
+      {jogo.capa && (
+        <div className={styles.heroBg}>
+          <div
+            className={styles.heroBgImg}
+            style={{ backgroundImage: `url(${jogo.capa})` }}
+          />
+          <div className={styles.heroBgOverlay} />
+        </div>
+      )}
+
       <main className={`${styles.main} fade-in`}>
         {/* Hero */}
         <div className={styles.hero}>
