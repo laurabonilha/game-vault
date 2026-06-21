@@ -1,0 +1,26 @@
+.chip {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(201, 168, 76, 0.25);
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.chip:hover {
+  border-color: rgba(201, 168, 76, 0.6);
+  color: var(--color-gold);
+}
+
+.active {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+  background: rgba(201, 168, 76, 0.08);
+}
