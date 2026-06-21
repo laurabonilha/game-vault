@@ -32,7 +32,7 @@ MVP acadêmico desenvolvido para a pós-graduação em **Desenvolvimento Front-e
 
 ```bash
 # Clone o repositório
-git clone https://github.com/SEU_USUARIO/game-vault.git
+git clone https://github.com/laurabonilha/game-vault.git
 
 # Entre na pasta
 cd game-vault
