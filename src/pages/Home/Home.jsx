@@ -62,7 +62,7 @@ function Home() {
         ) : (
           <section className={`${styles.statsPanel} fade-in`}>
             <div className={styles.statCard}>
-              <span className={styles.statIcon}>📚</span>
+              <span className={styles.statIcon}>🎮</span>
               <span className={styles.statValue}>{jogos.length}</span>
               <span className={styles.statLabel}>Total de Jogos</span>
             </div>
@@ -72,7 +72,7 @@ function Home() {
               <span className={styles.statLabel}>Zerados</span>
             </div>
             <div className={styles.statCard}>
-              <span className={styles.statIcon}>⚔️</span>
+              <span className={styles.statIcon}>🔥</span>
               <span className={styles.statValue}>{jogando.length}</span>
               <span className={styles.statLabel}>Jogando</span>
             </div>
