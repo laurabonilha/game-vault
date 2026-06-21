@@ -9,8 +9,10 @@ function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.container}>
+
         <Link to="/" className={styles.logo}>
-          <span className={styles.logoIcon}>⚔️</span>
+          <span className={styles.logoIcon}>⚔</span>
+          <span className={styles.logoDivider} />
           <span className={styles.logoText}>Game Vault</span>
         </Link>
 
@@ -21,19 +23,26 @@ function Header() {
           >
             Home
           </Link>
+
+          <span className={styles.navSep}>◆</span>
+
           <Link
             to="/acervo"
             className={`${styles.navLink} ${isActive('/acervo') ? styles.active : ''}`}
           >
             Acervo
           </Link>
+
+          <span className={styles.navSep}>◆</span>
+
           <Link
             to="/adicionar"
-            className={`${styles.navLink} ${isActive('/adicionar') ? styles.active : ''}`}
+            className={`${styles.navLink} ${styles.navLinkAdicionar} ${isActive('/adicionar') ? styles.active : ''}`}
           >
             + Adicionar
           </Link>
         </nav>
+
       </div>
     </header>
   )

@@ -1,22 +1,45 @@
+/* ─── Estrutura ─────────────────────────────────────────────── */
+
 .header {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 100;
-  background: var(--color-bg-card);
-  border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+  background: rgba(26, 21, 32, 0.82);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+/* Borda inferior com gradiente */
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(201, 168, 76, 0.4) 20%,
+    rgba(240, 192, 64, 0.85) 50%,
+    rgba(201, 168, 76, 0.4) 80%,
+    transparent 100%
+  );
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 var(--space-lg);
-  height: 64px;
+  height: 68px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
+
+/* ─── Logo ──────────────────────────────────────────────────── */
 
 .logo {
   display: flex;
@@ -26,37 +49,62 @@
 }
 
 .logoIcon {
-  font-size: 20px;
+  font-size: 18px;
+  color: var(--color-gold);
+  line-height: 1;
+  transition: var(--transition);
+  filter: drop-shadow(0 0 6px rgba(201, 168, 76, 0));
+}
+
+.logo:hover .logoIcon {
+  filter: drop-shadow(0 0 8px rgba(201, 168, 76, 0.7));
+  transform: rotate(-8deg);
+}
+
+.logoDivider {
+  width: 1px;
+  height: 18px;
+  background: rgba(201, 168, 76, 0.3);
 }
 
 .logoText {
   font-family: var(--font-title);
-  font-size: 20px;
+  font-size: 19px;
   color: var(--color-gold);
-  letter-spacing: 2px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
   transition: var(--transition);
 }
 
 .logo:hover .logoText {
   color: var(--color-gold-bright);
+  text-shadow: 0 0 18px rgba(201, 168, 76, 0.45);
 }
+
+/* ─── Nav ───────────────────────────────────────────────────── */
 
 .nav {
   display: flex;
   align-items: center;
-  gap: var(--space-lg);
+  gap: var(--space-md);
+}
+
+.navSep {
+  font-size: 6px;
+  color: rgba(201, 168, 76, 0.3);
+  user-select: none;
 }
 
 .navLink {
   font-family: var(--font-body);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
-  letter-spacing: 1.5px;
+  letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--color-text-muted);
   text-decoration: none;
-  padding: 6px 0;
-  border-bottom: 2px solid transparent;
+  padding: 4px 2px;
+  position: relative;
   transition: var(--transition);
 }
 
@@ -64,10 +112,52 @@
   color: var(--color-gold);
 }
 
+/* Indicador de página ativa — ponto dourado abaixo */
+.navLink::after {
+  content: '◆';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  font-size: 5px;
+  color: var(--color-gold);
+  transition: var(--transition);
+}
+
 .active {
   color: var(--color-gold);
-  border-bottom: 2px solid var(--color-gold);
 }
+
+.active::after {
+  transform: translateX(-50%) scale(1);
+}
+
+/* Link "Adicionar" com estilo de badge */
+.navLinkAdicionar {
+  border: 1px solid rgba(201, 168, 76, 0.35);
+  border-radius: var(--radius-sm);
+  padding: 5px 12px;
+  color: var(--color-gold);
+  letter-spacing: 1.5px;
+}
+
+.navLinkAdicionar:hover {
+  background: rgba(201, 168, 76, 0.08);
+  border-color: rgba(201, 168, 76, 0.7);
+  box-shadow: 0 0 12px rgba(201, 168, 76, 0.15);
+}
+
+.navLinkAdicionar.active {
+  background: rgba(201, 168, 76, 0.12);
+  border-color: var(--color-gold);
+}
+
+/* O indicador de ponto não faz sentido no botão */
+.navLinkAdicionar::after {
+  display: none;
+}
+
+/* ─── Responsivo ─────────────────────────────────────────────── */
 
 @media (max-width: 480px) {
   .container {
@@ -75,14 +165,24 @@
   }
 
   .logoText {
-    font-size: 16px;
+    font-size: 15px;
+    letter-spacing: 2px;
   }
 
   .nav {
-    gap: var(--space-md);
+    gap: var(--space-sm);
   }
 
   .navLink {
-    font-size: 11px;
+    font-size: 10px;
+    letter-spacing: 1px;
+  }
+
+  .navSep {
+    display: none;
+  }
+
+  .navLinkAdicionar {
+    padding: 4px 8px;
   }
 }
