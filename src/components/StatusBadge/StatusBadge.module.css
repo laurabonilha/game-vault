@@ -1,0 +1,47 @@
+.badge {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: default;
+  white-space: nowrap;
+}
+
+.icon {
+  font-size: 9px;
+}
+
+.zerado {
+  background: rgba(76, 175, 125, 0.15);
+  color: var(--color-status-zerado);
+  border: 1px solid rgba(76, 175, 125, 0.3);
+}
+
+.jogando {
+  background: rgba(74, 144, 217, 0.15);
+  color: var(--color-status-jogando);
+  border: 1px solid rgba(74, 144, 217, 0.3);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.abandonado {
+  background: rgba(192, 57, 43, 0.15);
+  color: var(--color-status-abandonado);
+  border: 1px solid rgba(192, 57, 43, 0.3);
+}
+
+.querjogar {
+  background: rgba(230, 168, 23, 0.15);
+  color: var(--color-status-querjogar);
+  border: 1px solid rgba(230, 168, 23, 0.3);
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.6; }
+}

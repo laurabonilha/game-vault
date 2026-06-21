@@ -1,0 +1,30 @@
+.stars {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.star {
+  font-size: 14px;
+  transition: var(--transition);
+  line-height: 1;
+}
+
+.filled {
+  color: var(--color-gold);
+}
+
+.empty {
+  color: var(--color-gold);
+  opacity: 0.2;
+}
+
+.interactive .star {
+  cursor: pointer;
+  font-size: 22px;
+}
+
+.interactive .star:hover {
+  transform: scale(1.2);
+  opacity: 1;
+}
