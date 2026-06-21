@@ -29,8 +29,27 @@ function Home() {
       <main className={styles.main}>
         {/* Banner */}
         <section className={styles.banner}>
+          <div className={styles.bannerHalo} />
+
+          <div className={`${styles.bannerOrnament} ${styles.ornamentTop}`}>
+            <span className={styles.ornamentLine} />
+            <span className={styles.ornamentStar}>✦</span>
+            <span className={styles.ornamentLine} />
+          </div>
+
           <h1 className={styles.bannerTitle}>Game Vault</h1>
-          <p className={styles.bannerSub}>Seu grimório pessoal de aventuras digitais</p>
+
+          <div className={`${styles.bannerOrnament} ${styles.ornamentBottom}`}>
+            <span className={styles.ornamentLine} />
+            <span className={styles.ornamentStar}>✦</span>
+            <span className={styles.ornamentLine} />
+          </div>
+
+          <p className={styles.bannerSub}>
+            <span className={styles.subDeco}>── · ──</span>
+            Seu grimório pessoal de aventuras digitais
+            <span className={styles.subDeco}>── · ──</span>
+          </p>
         </section>
 
         {/* Painel de estatísticas */}
