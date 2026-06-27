@@ -6,6 +6,27 @@ body {
   font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.5;
+
+  /* Partículas douradas flutuantes — 3 camadas com tamanhos primos para evitar padrão repetido visível */
+  background-image:
+    radial-gradient(circle, rgba(201, 168, 76, 0.38) 1px, transparent 1px),
+    radial-gradient(circle, rgba(201, 168, 76, 0.18) 1px, transparent 1px),
+    radial-gradient(circle, rgba(240, 192, 64, 0.48) 1.5px, transparent 2px);
+  background-size: 127px 127px, 193px 193px, 317px 317px;
+  background-attachment: fixed, fixed, fixed;
+  animation: particlesDrift 90s linear infinite;
+}
+
+@keyframes particlesDrift {
+  from { background-position: 23px 0px,   97px 0px,   200px 0px; }
+  to   { background-position: 23px -127px, 97px -193px, 200px -317px; }
+}
+
+@media (max-width: 768px) {
+  body {
+    background-attachment: scroll, scroll, scroll;
+    animation: none;
+  }
 }
 
 h1, h2, h3, h4 {
