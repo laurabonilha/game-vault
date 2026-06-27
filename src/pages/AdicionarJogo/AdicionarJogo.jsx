@@ -5,6 +5,7 @@ import usePageTitle from '../../hooks/usePageTitle'
 import StatusBadge from '../../components/StatusBadge/StatusBadge'
 import StarRating from '../../components/StarRating/StarRating'
 import generosData from '../../data/generos.json'
+import { addJogo } from '../../utils/storage'
 import styles from './AdicionarJogo.module.css'
 
 const STATUS_OPCOES = [
@@ -55,6 +56,17 @@ function AdicionarJogo() {
   }
 
   const confirmarSalvar = () => {
+    addJogo({
+      nome: form.nome.trim(),
+      plataforma: form.plataforma,
+      genero: form.genero,
+      status: form.status,
+      nota: Number(form.nota),
+      horasJogadas: Number(form.horasJogadas) || 0,
+      review: form.review.trim(),
+      capa: '',
+      anoLancamento: new Date().getFullYear(),
+    })
     setModalAberto(false)
     setToastVisivel(true)
     setTimeout(() => {

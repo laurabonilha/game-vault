@@ -5,7 +5,7 @@ import usePageTitle from '../../hooks/usePageTitle'
 import StatusBadge from '../../components/StatusBadge/StatusBadge'
 import StarRating from '../../components/StarRating/StarRating'
 import GameCard from '../../components/GameCard/GameCard'
-import jogosData from '../../data/jogos.json'
+import { getJogos } from '../../utils/storage'
 import styles from './DetalheJogo.module.css'
 
 function DetalheJogo() {
@@ -17,7 +17,8 @@ function DetalheJogo() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      const encontrado = jogosData.find((j) => j.id === Number(id))
+      const todos = getJogos()
+      const encontrado = todos.find((j) => j.id === Number(id))
       setJogo(encontrado || null)
       setLoading(false)
     }, 800)
@@ -25,7 +26,7 @@ function DetalheJogo() {
   }, [id])
 
   const jogosRelacionados = jogo
-    ? jogosData.filter((j) => j.genero === jogo.genero && j.id !== jogo.id)
+    ? getJogos().filter((j) => j.genero === jogo.genero && j.id !== jogo.id)
     : []
 
   if (loading) {

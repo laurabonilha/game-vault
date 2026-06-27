@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import Header from '../../components/Header/Header'
 import usePageTitle from '../../hooks/usePageTitle'
 import GameCard from '../../components/GameCard/GameCard'
-import jogosData from '../../data/jogos.json'
+import { getJogos } from '../../utils/storage'
 import styles from './Home.module.css'
 
 function Home() {
@@ -12,7 +12,7 @@ function Home() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setJogos(jogosData)
+      setJogos(getJogos())
       setLoading(false)
     }, 800)
     return () => clearTimeout(timer)

@@ -4,7 +4,7 @@ import usePageTitle from '../../hooks/usePageTitle'
 import GameCard from '../../components/GameCard/GameCard'
 import FilterChip from '../../components/FilterChip/FilterChip'
 import EmptyState from '../../components/EmptyState/EmptyState'
-import jogosData from '../../data/jogos.json'
+import { getJogos } from '../../utils/storage'
 import generosData from '../../data/generos.json'
 import styles from './Acervo.module.css'
 
@@ -26,7 +26,7 @@ function Acervo() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setJogos(jogosData)
+      setJogos(getJogos())
       setLoading(false)
     }, 800)
     return () => clearTimeout(timer)
