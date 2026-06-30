@@ -36,6 +36,15 @@ function Header() {
           <span className={styles.navSep}>◆</span>
 
           <Link
+            to="/estatisticas"
+            className={`${styles.navLink} ${isActive('/estatisticas') ? styles.active : ''}`}
+          >
+            Stats
+          </Link>
+
+          <span className={styles.navSep}>◆</span>
+
+          <Link
             to="/adicionar"
             className={`${styles.navLink} ${styles.navLinkAdicionar} ${isActive('/adicionar') ? styles.active : ''}`}
           >
