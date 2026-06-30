@@ -38,6 +38,9 @@ function AdicionarJogo() {
   const [modalAberto, setModalAberto] = useState(false)
   const [toastVisivel, setToastVisivel] = useState(false)
   const [capaErro, setCapaErro] = useState(false)
+  const [formTocado, setFormTocado] = useState(false)
+  const [modalSairAberto, setModalSairAberto] = useState(false)
+  const [destinoSair, setDestinoSair] = useState('')
 
   useEffect(() => {
     if (!modoEdicao) return
@@ -60,7 +63,32 @@ function AdicionarJogo() {
   const atualizar = (campo, valor) => {
     setForm((prev) => ({ ...prev, [campo]: valor }))
     if (erros[campo]) setErros((prev) => ({ ...prev, [campo]: '' }))
+    setFormTocado(true)
   }
+
+  const tentarSair = (destino) => {
+    if (formTocado) {
+      setDestinoSair(destino)
+      setModalSairAberto(true)
+    } else {
+      navigate(destino)
+    }
+  }
+
+  const confirmarSair = () => {
+    setModalSairAberto(false)
+    navigate(destinoSair)
+  }
+
+  useEffect(() => {
+    const handler = (e) => {
+      if (!formTocado) return
+      e.preventDefault()
+      e.returnValue = ''
+    }
+    window.addEventListener('beforeunload', handler)
+    return () => window.removeEventListener('beforeunload', handler)
+  }, [formTocado])
 
   const validar = () => {
     const novosErros = {}
@@ -93,6 +121,7 @@ function AdicionarJogo() {
     } else {
       addJogo({ ...dados, anoLancamento: new Date().getFullYear() })
     }
+    setFormTocado(false)
     setModalAberto(false)
     setToastVisivel(true)
     setTimeout(() => {
@@ -251,7 +280,7 @@ function AdicionarJogo() {
 
           {/* Ações */}
           <div className={styles.acoes}>
-            <button className="btn btn-ghost" onClick={() => navigate(modoEdicao ? `/jogo/${id}` : '/acervo')}>
+            <button className="btn btn-ghost" onClick={() => tentarSair(modoEdicao ? `/jogo/${id}` : '/acervo')}>
               Cancelar
             </button>
             <button className="btn" onClick={abrirModal}>
@@ -279,6 +308,27 @@ function AdicionarJogo() {
               </button>
               <button className="btn" onClick={confirmarSalvar}>
                 Confirmar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal de confirmação de saída */}
+      {modalSairAberto && (
+        <div className={styles.modalOverlay} onClick={() => setModalSairAberto(false)}>
+          <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+            <span className={styles.modalIcon}>⚠️</span>
+            <h2 className={styles.modalTitulo}>Sair sem salvar?</h2>
+            <p className={styles.modalTexto}>
+              Você tem alterações não salvas. Se sair agora, todo o progresso será perdido.
+            </p>
+            <div className={styles.modalAcoes}>
+              <button className="btn btn-ghost" onClick={confirmarSair}>
+                Sair mesmo assim
+              </button>
+              <button className="btn" onClick={() => setModalSairAberto(false)}>
+                Continuar editando
               </button>
             </div>
           </div>
