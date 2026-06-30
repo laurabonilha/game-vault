@@ -29,6 +29,18 @@ body {
   }
 }
 
+/* Partículas no tema claro — poeira de pergaminho */
+[data-theme="light"] body {
+  background-image:
+    radial-gradient(circle, rgba(100, 70, 20, 0.28) 1px, transparent 1px),
+    radial-gradient(circle, rgba(100, 70, 20, 0.14) 1px, transparent 1px),
+    radial-gradient(circle, rgba(120, 80, 15, 0.36) 1.5px, transparent 2px);
+}
+
+[data-theme="light"] body::after {
+  opacity: 0.045;
+}
+
 h1, h2, h3, h4 {
   font-family: var(--font-title);
   color: var(--color-text-title);

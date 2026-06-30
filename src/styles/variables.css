@@ -4,6 +4,7 @@
   --color-bg-primary:        #0D0A0B;
   --color-bg-card:           #1A1520;
   --color-bg-hover:          #2D2438;
+  --color-bg-header:         rgba(26, 21, 32, 0.82);
 
   --color-text-primary:      #E8D5A3;
   --color-text-muted:        #8B7355;
@@ -44,4 +45,27 @@
   --radius-lg: 12px;
 
   --transition: all 0.3s ease;
+}
+
+/* ─── Tema claro — estética de pergaminho medieval ──────────── */
+[data-theme="light"] {
+  --color-bg-primary:   #F2EAD8;
+  --color-bg-card:      #E8DEC8;
+  --color-bg-hover:     #DDD2B8;
+  --color-bg-header:    rgba(242, 234, 216, 0.88);
+
+  --color-text-primary: #2A1F0F;
+  --color-text-muted:   #7A6540;
+  --color-text-title:   #7A5A10;
+
+  --color-gold:         #8B6A14;
+  --color-gold-bright:  #A07820;
+
+  --border-card:        1px solid rgba(139,106,20,0.22);
+  --border-card-hover:  1px solid rgba(139,106,20,0.75);
+  --border-input:       1px solid rgba(139,106,20,0.22);
+  --border-input-focus: 1px solid #8B6A14;
+
+  --shadow-card:        0 0 12px rgba(100,70,20,0.10);
+  --shadow-card-hover:  0 0 24px rgba(100,70,20,0.20);
 }

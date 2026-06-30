@@ -1,8 +1,10 @@
 import { Link, useLocation } from 'react-router-dom'
+import useTheme from '../../hooks/useTheme'
 import styles from './Header.module.css'
 
 function Header() {
   const location = useLocation()
+  const { tema, alternarTema } = useTheme()
 
   const isActive = (path) => location.pathname === path
 
@@ -50,6 +52,15 @@ function Header() {
           >
             + Adicionar
           </Link>
+
+          <button
+            className={styles.themeToggle}
+            onClick={alternarTema}
+            title={tema === 'dark' ? 'Mudar para tema claro' : 'Mudar para tema escuro'}
+            aria-label={tema === 'dark' ? 'Mudar para tema claro' : 'Mudar para tema escuro'}
+          >
+            {tema === 'dark' ? '☀' : '☾'}
+          </button>
         </nav>
 
       </div>
