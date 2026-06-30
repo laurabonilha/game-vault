@@ -135,6 +135,275 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* ─── Destaque rotativo ─────────────────────────────────────── */
+
+.destaque {
+  display: grid;
+  grid-template-columns: 310px 1fr;
+  grid-template-rows: 540px;
+  border: var(--border-card);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+  margin-top: var(--space-lg);
+  background: var(--color-bg-card);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.destaque:hover {
+  border: var(--border-card-hover);
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* Capa desfocada como fundo */
+.destaqueBg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: blur(40px);
+  opacity: 0.38;
+  z-index: 0;
+  pointer-events: none;
+  transform: scale(1.08);
+}
+
+/* Capa principal — estica para preencher toda a altura do card */
+.destaqueEsquerda {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  align-self: stretch;
+}
+
+/* Fade gradiente da capa para o painel de info */
+.destaqueEsquerda::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 70px;
+  height: 100%;
+  background: linear-gradient(to right, transparent, var(--color-bg-card));
+  z-index: 2;
+  pointer-events: none;
+  transition: background 0.3s ease;
+}
+
+.destaqueCapaImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  animation: capaEntra 0.5s ease forwards;
+}
+
+.destaqueCapaSem {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 64px;
+  background: var(--color-bg-hover);
+  opacity: 0.35;
+  animation: capaEntra 0.5s ease forwards;
+}
+
+@keyframes capaEntra {
+  from { opacity: 0; transform: scale(1.06); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* Painel de info — estica para igualar a altura da coluna da capa */
+.destaqueDireita {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  align-self: stretch;
+  padding: var(--space-xl) var(--space-lg) var(--space-xl) var(--space-md);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--space-md);
+  background: var(--color-bg-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  animation: infoEntra 0.45s ease 0.05s both;
+}
+
+/* Marca d'água decorativa — container fixo no canto inferior direito */
+.destaqueWatermark {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 220px;
+  height: 220px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 200px;
+  line-height: 1;
+  opacity: 0.07;
+  pointer-events: none;
+  user-select: none;
+  color: var(--color-gold);
+  filter: drop-shadow(0 0 40px rgba(201, 168, 76, 0.25));
+  z-index: 0;
+}
+
+@keyframes infoEntra {
+  from { opacity: 0; transform: translateX(18px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Setas de navegação */
+.destaqueArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(201, 168, 76, 0.35);
+  border-radius: 50%;
+  color: var(--color-gold);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+  padding-bottom: 2px;
+}
+
+.destaque:hover .destaqueArrow {
+  opacity: 1;
+}
+
+.destaqueArrow:hover {
+  background: rgba(201, 168, 76, 0.18);
+  border-color: rgba(201, 168, 76, 0.75);
+}
+
+.destaqueArrowLeft  { left: 10px; }
+.destaqueArrowRight { right: 10px; }
+
+@media (max-width: 768px) {
+  .destaqueArrow { opacity: 0.75; }
+}
+
+.destaqueTag {
+  font-family: var(--font-mono);
+  font-size: 26px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  opacity: 0.9;
+}
+
+.destaqueNome {
+  font-family: var(--font-title);
+  font-size: clamp(38px, 5vw, 60px);
+  color: var(--color-text-title);
+  letter-spacing: 2px;
+  line-height: 1.05;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.destaqueDescricao {
+  font-family: var(--font-body);
+  font-size: 22px;
+  color: var(--color-text-muted);
+  font-style: italic;
+  line-height: 1.5;
+  opacity: 0.9;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.destaqueEstrelas {
+  font-family: var(--font-mono);
+  font-size: 28px;
+  color: var(--color-gold);
+  letter-spacing: 4px;
+}
+
+.destaqueNota {
+  font-size: 20px;
+  color: var(--color-text-muted);
+  letter-spacing: 0;
+}
+
+.destaqueMeta {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  color: var(--color-text-muted);
+  letter-spacing: 1px;
+}
+
+.destaqueMetaSep {
+  opacity: 0.4;
+  font-size: 10px;
+}
+
+.destaqueFooter {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  margin-top: var(--space-sm);
+}
+
+.destaqueBtn {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+/* Indicadores de rotação — abaixo do card, centralizados */
+.indicadores {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  margin-top: var(--space-md);
+}
+
+.indicador {
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: rgba(201, 168, 76, 0.28);
+  cursor: pointer;
+  padding: 2px;
+  line-height: 1;
+  transition: var(--transition);
+}
+
+.indicador:hover {
+  color: rgba(201, 168, 76, 0.65);
+  transform: scale(1.25);
+}
+
+.indicadorAtivo {
+  color: var(--color-gold);
+  transform: scale(1.35);
+  filter: drop-shadow(0 0 5px rgba(201, 168, 76, 0.55));
+}
+
+/* ─── Painel de estatísticas ─────────────────────────────── */
+
 /* Painel de estatísticas */
 .statsPanel {
   display: grid;
@@ -227,6 +496,22 @@
 
   .bannerTitle {
     letter-spacing: 4px;
+  }
+
+  .destaque {
+    grid-template-columns: 240px 1fr;
+    grid-template-rows: 480px;
+  }
+}
+
+@media (max-width: 560px) {
+  .destaque {
+    grid-template-columns: 140px 1fr;
+    grid-template-rows: 420px;
+  }
+
+  .destaqueDireita {
+    padding: var(--space-md);
   }
 }
 

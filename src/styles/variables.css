@@ -5,6 +5,7 @@
   --color-bg-card:           #1A1520;
   --color-bg-hover:          #2D2438;
   --color-bg-header:         rgba(26, 21, 32, 0.82);
+  --color-bg-glass:          rgba(26, 21, 32, 0.72);
 
   --color-text-primary:      #E8D5A3;
   --color-text-muted:        #8B7355;
@@ -53,6 +54,7 @@
   --color-bg-card:      #E8DEC8;
   --color-bg-hover:     #DDD2B8;
   --color-bg-header:    rgba(242, 234, 216, 0.88);
+  --color-bg-glass:     rgba(232, 222, 200, 0.72);
 
   --color-text-primary: #2A1F0F;
   --color-text-muted:   #7A6540;
