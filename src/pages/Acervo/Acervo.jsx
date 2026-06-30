@@ -58,6 +58,27 @@ function Acervo() {
     })
     .sort(SORT_FNS[ordenacao])
 
+  // Contadores facetados: cada dimensão ignora o próprio filtro mas respeita os outros
+  const contarStatus = (status) => jogos.filter((j) => {
+    const matchBusca = j.nome.toLowerCase().includes(busca.toLowerCase())
+    const matchGenero = generoAtivo === 'todos' || j.genero === generoAtivo
+    return matchBusca && matchGenero && (status === 'todos' || j.status === status)
+  }).length
+
+  const contarGenero = (genero) => jogos.filter((j) => {
+    const matchBusca = j.nome.toLowerCase().includes(busca.toLowerCase())
+    const matchStatus = statusAtivo === 'todos' || j.status === statusAtivo
+    return matchBusca && matchStatus && (genero === 'todos' || j.genero === genero)
+  }).length
+
+  const filtrosAtivos = busca !== '' || statusAtivo !== 'todos' || generoAtivo !== 'todos'
+
+  const limparFiltros = () => {
+    setBusca('')
+    setStatusAtivo('todos')
+    setGeneroAtivo('todos')
+  }
+
   return (
     <div className={styles.page}>
       <Header />
@@ -94,7 +115,14 @@ function Acervo() {
 
         {/* Filtros de status */}
         <div className={styles.filtrosGrupo}>
-          <span className={styles.filtrosLabel}>Status</span>
+          <div className={styles.filtrosHeaderRow}>
+            <span className={styles.filtrosLabel}>Status</span>
+            {filtrosAtivos && (
+              <button className={styles.limparBtn} onClick={limparFiltros}>
+                ✕ Limpar filtros
+              </button>
+            )}
+          </div>
           <div className={styles.chips}>
             {STATUS_FILTROS.map((f) => (
               <FilterChip
@@ -102,6 +130,7 @@ function Acervo() {
                 label={f.label}
                 active={statusAtivo === f.value}
                 color={f.color}
+                count={contarStatus(f.value)}
                 onClick={() => setStatusAtivo(f.value)}
               />
             ))}
@@ -115,6 +144,7 @@ function Acervo() {
             <FilterChip
               label="Todos"
               active={generoAtivo === 'todos'}
+              count={contarGenero('todos')}
               onClick={() => setGeneroAtivo('todos')}
             />
             {generosData.map((genero) => (
@@ -122,6 +152,7 @@ function Acervo() {
                 key={genero}
                 label={genero}
                 active={generoAtivo === genero}
+                count={contarGenero(genero)}
                 onClick={() => setGeneroAtivo(genero)}
               />
             ))}

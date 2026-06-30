@@ -24,3 +24,15 @@
   color: var(--color-gold);
   background: rgba(201, 168, 76, 0.08);
 }
+
+.count {
+  font-size: 10px;
+  font-weight: 600;
+  background: rgba(201, 168, 76, 0.15);
+  color: var(--color-gold);
+  border-radius: 999px;
+  padding: 1px 6px;
+  margin-left: 4px;
+  letter-spacing: 0;
+  line-height: 1.4;
+}

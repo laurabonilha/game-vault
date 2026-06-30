@@ -67,6 +67,13 @@
   margin-bottom: var(--space-md);
 }
 
+.filtrosHeaderRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-sm);
+}
+
 .filtrosLabel {
   font-family: var(--font-mono);
   font-size: 15px;
@@ -79,6 +86,29 @@
 .filtrosLabel::before {
   content: '> ';
   color: rgba(201, 168, 76, 0.5);
+}
+
+.filtrosHeaderRow .filtrosLabel {
+  margin-bottom: 0;
+}
+
+.limparBtn {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  background: transparent;
+  border: 1px solid rgba(201, 168, 76, 0.2);
+  border-radius: 999px;
+  padding: 3px 10px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.limparBtn:hover {
+  color: var(--color-status-abandonado);
+  border-color: var(--color-status-abandonado);
 }
 
 .chips {
