@@ -1,22 +1,12 @@
-import { useState, useEffect } from 'react'
 import Header from '../../components/Header/Header'
 import usePageTitle from '../../hooks/usePageTitle'
+import useJogos from '../../hooks/useJogos'
 import GameCard from '../../components/GameCard/GameCard'
-import { getJogos } from '../../utils/storage'
 import styles from './Home.module.css'
 
 function Home() {
   usePageTitle(null)
-  const [jogos, setJogos] = useState([])
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setJogos(getJogos())
-      setLoading(false)
-    }, 800)
-    return () => clearTimeout(timer)
-  }, [])
+  const { jogos, loading } = useJogos()
 
   const jogando = jogos.filter((j) => j.status === 'jogando')
   const zerados = jogos.filter((j) => j.status === 'zerado')

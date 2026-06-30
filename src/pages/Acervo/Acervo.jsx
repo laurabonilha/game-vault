@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Header from '../../components/Header/Header'
 import usePageTitle from '../../hooks/usePageTitle'
+import useJogos from '../../hooks/useJogos'
 import GameCard from '../../components/GameCard/GameCard'
 import FilterChip from '../../components/FilterChip/FilterChip'
 import EmptyState from '../../components/EmptyState/EmptyState'
-import { getJogos } from '../../utils/storage'
 import generosData from '../../data/generos.json'
 import styles from './Acervo.module.css'
 
@@ -34,27 +34,22 @@ const STATUS_FILTROS = [
 
 function Acervo() {
   usePageTitle('Acervo')
-  const [jogos, setJogos] = useState([])
-  const [loading, setLoading] = useState(true)
+  const { jogos, loading } = useJogos()
   const [busca, setBusca] = useState('')
   const [statusAtivo, setStatusAtivo] = useState('todos')
   const [generoAtivo, setGeneroAtivo] = useState('todos')
+  const [plataformaAtiva, setPlataformaAtiva] = useState('todas')
   const [ordenacao, setOrdenacao] = useState('recente')
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setJogos(getJogos())
-      setLoading(false)
-    }, 800)
-    return () => clearTimeout(timer)
-  }, [])
+  const plataformas = [...new Set(jogos.map((j) => j.plataforma))].sort()
 
   const jogosFiltrados = jogos
     .filter((jogo) => {
       const matchBusca = jogo.nome.toLowerCase().includes(busca.toLowerCase())
       const matchStatus = statusAtivo === 'todos' || jogo.status === statusAtivo
       const matchGenero = generoAtivo === 'todos' || jogo.genero === generoAtivo
-      return matchBusca && matchStatus && matchGenero
+      const matchPlataforma = plataformaAtiva === 'todas' || jogo.plataforma === plataformaAtiva
+      return matchBusca && matchStatus && matchGenero && matchPlataforma
     })
     .sort(SORT_FNS[ordenacao])
 
@@ -62,21 +57,31 @@ function Acervo() {
   const contarStatus = (status) => jogos.filter((j) => {
     const matchBusca = j.nome.toLowerCase().includes(busca.toLowerCase())
     const matchGenero = generoAtivo === 'todos' || j.genero === generoAtivo
-    return matchBusca && matchGenero && (status === 'todos' || j.status === status)
+    const matchPlataforma = plataformaAtiva === 'todas' || j.plataforma === plataformaAtiva
+    return matchBusca && matchGenero && matchPlataforma && (status === 'todos' || j.status === status)
   }).length
 
   const contarGenero = (genero) => jogos.filter((j) => {
     const matchBusca = j.nome.toLowerCase().includes(busca.toLowerCase())
     const matchStatus = statusAtivo === 'todos' || j.status === statusAtivo
-    return matchBusca && matchStatus && (genero === 'todos' || j.genero === genero)
+    const matchPlataforma = plataformaAtiva === 'todas' || j.plataforma === plataformaAtiva
+    return matchBusca && matchStatus && matchPlataforma && (genero === 'todos' || j.genero === genero)
   }).length
 
-  const filtrosAtivos = busca !== '' || statusAtivo !== 'todos' || generoAtivo !== 'todos'
+  const contarPlataforma = (plataforma) => jogos.filter((j) => {
+    const matchBusca = j.nome.toLowerCase().includes(busca.toLowerCase())
+    const matchStatus = statusAtivo === 'todos' || j.status === statusAtivo
+    const matchGenero = generoAtivo === 'todos' || j.genero === generoAtivo
+    return matchBusca && matchStatus && matchGenero && (plataforma === 'todas' || j.plataforma === plataforma)
+  }).length
+
+  const filtrosAtivos = busca !== '' || statusAtivo !== 'todos' || generoAtivo !== 'todos' || plataformaAtiva !== 'todas'
 
   const limparFiltros = () => {
     setBusca('')
     setStatusAtivo('todos')
     setGeneroAtivo('todos')
+    setPlataformaAtiva('todas')
   }
 
   return (
@@ -158,6 +163,30 @@ function Acervo() {
             ))}
           </div>
         </div>
+
+        {/* Filtros de plataforma */}
+        {plataformas.length > 0 && (
+          <div className={styles.filtrosGrupo}>
+            <span className={styles.filtrosLabel}>Plataforma</span>
+            <div className={styles.chips}>
+              <FilterChip
+                label="Todas"
+                active={plataformaAtiva === 'todas'}
+                count={contarPlataforma('todas')}
+                onClick={() => setPlataformaAtiva('todas')}
+              />
+              {plataformas.map((plataforma) => (
+                <FilterChip
+                  key={plataforma}
+                  label={plataforma}
+                  active={plataformaAtiva === plataforma}
+                  count={contarPlataforma(plataforma)}
+                  onClick={() => setPlataformaAtiva(plataforma)}
+                />
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Conteúdo */}
         {loading ? (

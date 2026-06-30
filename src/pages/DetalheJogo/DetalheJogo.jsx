@@ -1,33 +1,25 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import Header from '../../components/Header/Header'
 import usePageTitle from '../../hooks/usePageTitle'
+import useJogos from '../../hooks/useJogos'
 import StatusBadge from '../../components/StatusBadge/StatusBadge'
 import StarRating from '../../components/StarRating/StarRating'
 import GameCard from '../../components/GameCard/GameCard'
-import { getJogos, deleteJogo } from '../../utils/storage'
+import { deleteJogo } from '../../utils/storage'
 import styles from './DetalheJogo.module.css'
 
 function DetalheJogo() {
   const { id } = useParams()
   const navigate = useNavigate()
-  const [jogo, setJogo] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const { jogos, loading } = useJogos()
   const [modalExcluir, setModalExcluir] = useState(false)
-  usePageTitle(jogo ? jogo.nome : 'Carregando...')
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const todos = getJogos()
-      const encontrado = todos.find((j) => j.id === Number(id))
-      setJogo(encontrado || null)
-      setLoading(false)
-    }, 800)
-    return () => clearTimeout(timer)
-  }, [id])
+  const jogo = jogos.find((j) => j.id === Number(id)) ?? null
+  usePageTitle(loading ? 'Carregando...' : jogo ? jogo.nome : 'Não encontrado')
 
   const jogosRelacionados = jogo
-    ? getJogos().filter((j) => j.genero === jogo.genero && j.id !== jogo.id)
+    ? jogos.filter((j) => j.genero === jogo.genero && j.id !== jogo.id)
     : []
 
   if (loading) {

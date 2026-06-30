@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react'
 import Header from '../../components/Header/Header'
 import usePageTitle from '../../hooks/usePageTitle'
-import { getJogos } from '../../utils/storage'
+import useJogos from '../../hooks/useJogos'
 import styles from './Estatisticas.module.css'
 
 const STATUS_CONFIG = {
@@ -33,16 +32,7 @@ function ordenarDesc(obj) {
 
 function Estatisticas() {
   usePageTitle('Estatísticas')
-  const [jogos, setJogos] = useState([])
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setJogos(getJogos())
-      setLoading(false)
-    }, 800)
-    return () => clearTimeout(timer)
-  }, [])
+  const { jogos, loading } = useJogos()
 
   const total = jogos.length
   const jogosComNota = jogos.filter((j) => j.nota > 0)
