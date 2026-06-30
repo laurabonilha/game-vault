@@ -45,6 +45,39 @@
   );
 }
 
+/* Breadcrumb */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: var(--space-lg);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.8px;
+}
+
+.breadcrumbLink {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: var(--transition);
+}
+.breadcrumbLink:hover {
+  color: var(--color-gold);
+}
+
+.breadcrumbSep {
+  font-size: 7px;
+  color: rgba(201, 168, 76, 0.35);
+}
+
+.breadcrumbAtual {
+  color: var(--color-gold);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 320px;
+}
+
 /* Hero */
 .hero {
   display: grid;

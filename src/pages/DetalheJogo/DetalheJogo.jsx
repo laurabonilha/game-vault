@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, useLocation, Link } from 'react-router-dom'
 import Header from '../../components/Header/Header'
 import usePageTitle from '../../hooks/usePageTitle'
 import useJogos from '../../hooks/useJogos'
@@ -12,6 +12,7 @@ import styles from './DetalheJogo.module.css'
 function DetalheJogo() {
   const { id } = useParams()
   const navigate = useNavigate()
+  const location = useLocation()
   const { jogos, loading } = useJogos()
   const [modalExcluir, setModalExcluir] = useState(false)
 
@@ -65,6 +66,17 @@ function DetalheJogo() {
       )}
 
       <main className={`${styles.main} fade-in`}>
+        {/* Breadcrumb */}
+        <nav className={styles.breadcrumb} aria-label="Navegação">
+          <Link to="/" className={styles.breadcrumbLink}>Home</Link>
+          <span className={styles.breadcrumbSep}>◆</span>
+          <Link to="/acervo" className={styles.breadcrumbLink}>Acervo</Link>
+          <span className={styles.breadcrumbSep}>◆</span>
+          <span className={styles.breadcrumbAtual} title={location.pathname}>
+            {jogo.nome}
+          </span>
+        </nav>
+
         {/* Hero */}
         <div className={styles.hero}>
           <div className={styles.capaWrapper}>
