@@ -8,6 +8,22 @@ import { getJogos } from '../../utils/storage'
 import generosData from '../../data/generos.json'
 import styles from './Acervo.module.css'
 
+const ORDENACOES = [
+  { value: 'recente', label: 'Mais recente' },
+  { value: 'az',      label: 'Nome A → Z' },
+  { value: 'za',      label: 'Nome Z → A' },
+  { value: 'nota',    label: 'Maior nota' },
+  { value: 'horas',   label: 'Mais jogado' },
+]
+
+const SORT_FNS = {
+  recente: (a, b) => b.id - a.id,
+  az:      (a, b) => a.nome.localeCompare(b.nome),
+  za:      (a, b) => b.nome.localeCompare(a.nome),
+  nota:    (a, b) => b.nota - a.nota,
+  horas:   (a, b) => b.horasJogadas - a.horasJogadas,
+}
+
 const STATUS_FILTROS = [
   { label: 'Todos',        value: 'todos',     color: null },
   { label: 'Jogando',      value: 'jogando',   color: 'var(--color-status-jogando)' },
@@ -23,6 +39,7 @@ function Acervo() {
   const [busca, setBusca] = useState('')
   const [statusAtivo, setStatusAtivo] = useState('todos')
   const [generoAtivo, setGeneroAtivo] = useState('todos')
+  const [ordenacao, setOrdenacao] = useState('recente')
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -32,12 +49,14 @@ function Acervo() {
     return () => clearTimeout(timer)
   }, [])
 
-  const jogosFiltrados = jogos.filter((jogo) => {
-    const matchBusca = jogo.nome.toLowerCase().includes(busca.toLowerCase())
-    const matchStatus = statusAtivo === 'todos' || jogo.status === statusAtivo
-    const matchGenero = generoAtivo === 'todos' || jogo.genero === generoAtivo
-    return matchBusca && matchStatus && matchGenero
-  })
+  const jogosFiltrados = jogos
+    .filter((jogo) => {
+      const matchBusca = jogo.nome.toLowerCase().includes(busca.toLowerCase())
+      const matchStatus = statusAtivo === 'todos' || jogo.status === statusAtivo
+      const matchGenero = generoAtivo === 'todos' || jogo.genero === generoAtivo
+      return matchBusca && matchStatus && matchGenero
+    })
+    .sort(SORT_FNS[ordenacao])
 
   return (
     <div className={styles.page}>
@@ -46,16 +65,31 @@ function Acervo() {
       <main className={styles.main}>
         <h1 className={styles.titulo}>Acervo</h1>
 
-        {/* Busca */}
-        <div className={styles.buscaWrapper}>
-          <span className={styles.buscaIcon}>🔍</span>
-          <input
-            className={`input ${styles.busca}`}
-            type="text"
-            placeholder="Buscar jogo pelo nome..."
-            value={busca}
-            onChange={(e) => setBusca(e.target.value)}
-          />
+        {/* Busca + Ordenação */}
+        <div className={styles.controles}>
+          <div className={styles.buscaWrapper}>
+            <span className={styles.buscaIcon}>🔍</span>
+            <input
+              className={`input ${styles.busca}`}
+              type="text"
+              placeholder="Buscar jogo pelo nome..."
+              value={busca}
+              onChange={(e) => setBusca(e.target.value)}
+            />
+          </div>
+
+          <div className={styles.sortWrapper}>
+            <span className={styles.filtrosLabel}>Ordenar</span>
+            <select
+              className={`input ${styles.sortSelect}`}
+              value={ordenacao}
+              onChange={(e) => setOrdenacao(e.target.value)}
+            >
+              {ORDENACOES.map((o) => (
+                <option key={o.value} value={o.value}>{o.label}</option>
+              ))}
+            </select>
+          </div>
         </div>
 
         {/* Filtros de status */}
@@ -108,9 +142,9 @@ function Acervo() {
             message="Nenhum jogo encontrado nos grimórios. Tente ajustar os filtros ou adicionar novos títulos ao vault."
           />
         ) : (
-          <div className={`${styles.grid} fade-in`}>
-            {jogosFiltrados.map((jogo) => (
-              <GameCard key={jogo.id} {...jogo} />
+          <div className={styles.grid}>
+            {jogosFiltrados.map((jogo, i) => (
+              <GameCard key={jogo.id} {...jogo} index={i} />
             ))}
           </div>
         )}
