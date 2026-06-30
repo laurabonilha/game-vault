@@ -134,29 +134,179 @@ function AdicionarJogo() {
       <Header />
 
       <main className={styles.main}>
-        <h1 className={styles.titulo}>{modoEdicao ? 'Editar Jogo' : 'Adicionar Jogo'}</h1>
-        <p className={styles.subtitulo}>{modoEdicao ? 'Atualize os dados da aventura' : 'Registre uma nova aventura no vault'}</p>
 
-        <div className={styles.formWrapper}>
+        <div className={styles.pageHeader}>
+          <h1 className={styles.titulo}>{modoEdicao ? 'Editar Jogo' : 'Adicionar Jogo'}</h1>
+          <p className={styles.subtitulo}>
+            {modoEdicao ? 'Atualize os dados da aventura' : 'Registre uma nova aventura no vault'}
+          </p>
+        </div>
 
-          {/* Nome */}
-          <div className={styles.campo}>
-            <label className="label">Nome do jogo</label>
-            <input
-              className={`input ${erros.nome ? styles.inputErro : ''}`}
-              type="text"
-              placeholder="Ex: Elden Ring"
-              value={form.nome}
-              onChange={(e) => atualizar('nome', e.target.value)}
-            />
-            {erros.nome && <span className={styles.erroMsg}>{erros.nome}</span>}
+        <div className={styles.formGrid}>
+
+          {/* ── Coluna esquerda: campos do formulário ── */}
+          <div className={styles.formEsquerda}>
+
+            {/* Nome */}
+            <div className={styles.campo}>
+              <label className="label">Nome do jogo</label>
+              <input
+                className={`input ${erros.nome ? styles.inputErro : ''}`}
+                type="text"
+                placeholder="Ex: Elden Ring"
+                value={form.nome}
+                onChange={(e) => atualizar('nome', e.target.value)}
+              />
+              {erros.nome && <span className={styles.erroMsg}>{erros.nome}</span>}
+            </div>
+
+            {/* Plataforma e Gênero */}
+            <div className={styles.linha}>
+              <div className={styles.campo}>
+                <label className="label">Plataforma</label>
+                <select
+                  className="input"
+                  value={form.plataforma}
+                  onChange={(e) => atualizar('plataforma', e.target.value)}
+                >
+                  {PLATAFORMAS.map((p) => (
+                    <option key={p} value={p}>{p}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className={styles.campo}>
+                <label className="label">Gênero</label>
+                <select
+                  className="input"
+                  value={form.genero}
+                  onChange={(e) => atualizar('genero', e.target.value)}
+                >
+                  {generosData.map((g) => (
+                    <option key={g} value={g}>{g}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            {/* Status */}
+            <div className={styles.campo}>
+              <label className="label">Status</label>
+              <div className={styles.statusOpcoes}>
+                {STATUS_OPCOES.map((opcao) => (
+                  <div
+                    key={opcao.value}
+                    className={`${styles.statusOpcao} ${form.status === opcao.value ? styles.statusOpcaoAtivo : ''}`}
+                    onClick={() => atualizar('status', opcao.value)}
+                  >
+                    <StatusBadge status={opcao.value} />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Nota e Horas */}
+            <div className={styles.linha}>
+              <div className={styles.campo}>
+                <label className="label">Nota</label>
+                <div className={styles.notaWrapper}>
+                  <StarRating value={form.nota} onChange={(v) => atualizar('nota', v)} />
+                  {form.nota > 0 && (
+                    <span className={styles.notaTexto}>{form.nota}/5</span>
+                  )}
+                  {form.nota > 0 && (
+                    <button
+                      className={`btn btn-ghost btn-sm ${styles.limparNota}`}
+                      onClick={() => atualizar('nota', 0)}
+                    >
+                      Limpar
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              <div className={styles.campo}>
+                <label className="label">Horas jogadas</label>
+                <input
+                  className="input"
+                  type="number"
+                  placeholder="0"
+                  min="0"
+                  value={form.horasJogadas}
+                  onChange={(e) => atualizar('horasJogadas', e.target.value)}
+                />
+              </div>
+            </div>
+
+            {/* Review */}
+            <div className={styles.campo}>
+              <label className="label">Anotação pessoal</label>
+              <textarea
+                className={`input ${styles.textarea}`}
+                placeholder="Suas impressões sobre o jogo..."
+                value={form.review}
+                onChange={(e) => atualizar('review', e.target.value)}
+                rows={5}
+              />
+            </div>
+
+            {/* Ações */}
+            <div className={styles.acoes}>
+              <button className="btn btn-ghost" onClick={() => tentarSair(modoEdicao ? `/jogo/${id}` : '/acervo')}>
+                Cancelar
+              </button>
+              <button className="btn" onClick={abrirModal}>
+                {modoEdicao ? 'Salvar Alterações' : 'Adicionar ao Vault'}
+              </button>
+            </div>
           </div>
 
-          {/* Capa */}
-          <div className={styles.campo}>
-            <label className="label">URL da capa</label>
-            <div className={styles.capaWrapper}>
-              <div className={styles.capaInputCol}>
+          {/* ── Coluna direita: preview ao vivo ── */}
+          <div className={styles.formDireita}>
+            <div className={styles.previewPanel}>
+              <span className={styles.previewLabel}>◈ Preview no Vault</span>
+
+              <div className={styles.previewCard}>
+                <div className={styles.previewCapa}>
+                  {form.capa && !capaErro ? (
+                    <img
+                      key={form.capa}
+                      src={form.capa}
+                      alt={form.nome}
+                      className={styles.previewCapaImg}
+                      onError={() => setCapaErro(true)}
+                    />
+                  ) : (
+                    <div className={styles.previewCapaSem}>
+                      <span className={styles.previewCapaIcone}>⚔</span>
+                      <span className={styles.previewCapaHint}>
+                        {capaErro ? 'URL inválida' : 'Sem capa'}
+                      </span>
+                    </div>
+                  )}
+                </div>
+
+                <div className={styles.previewInfo}>
+                  <span className={styles.previewNome}>
+                    {form.nome || <span className={styles.previewPlaceholder}>Nome do jogo</span>}
+                  </span>
+                  <span className={styles.previewMeta}>
+                    {[form.plataforma, form.genero].filter(Boolean).join(' · ')}
+                  </span>
+                  {form.nota > 0 && (
+                    <span className={styles.previewNota}>
+                      {'★'.repeat(form.nota)}{'☆'.repeat(5 - form.nota)}
+                    </span>
+                  )}
+                  <div className={styles.previewStatus}>
+                    <StatusBadge status={form.status} />
+                  </div>
+                </div>
+              </div>
+
+              {/* URL da capa */}
+              <div className={styles.campo}>
+                <label className="label">URL da capa</label>
                 <input
                   className="input"
                   type="url"
@@ -165,132 +315,16 @@ function AdicionarJogo() {
                   onChange={(e) => { atualizar('capa', e.target.value); setCapaErro(false) }}
                 />
                 <span className={styles.capaHint}>
-                  Cole a URL de uma imagem para ver o preview em tempo real
+                  Cole a URL de uma imagem para ver o preview acima
                 </span>
               </div>
-              <div className={`${styles.capaPreview} ${form.capa && !capaErro ? styles.capaPreviewOk : ''}`}>
-                {form.capa && !capaErro ? (
-                  <img
-                    src={form.capa}
-                    alt="Preview da capa"
-                    className={styles.capaPreviewImg}
-                    onError={() => setCapaErro(true)}
-                  />
-                ) : (
-                  <div className={styles.capaPreviewPlaceholder}>
-                    <span className={styles.capaPreviewIcon}>{capaErro ? '✕' : '🖼'}</span>
-                    <span className={styles.capaPreviewLabel}>
-                      {capaErro ? 'URL inválida' : 'Preview'}
-                    </span>
-                  </div>
-                )}
-              </div>
             </div>
           </div>
 
-          {/* Plataforma e Gênero */}
-          <div className={styles.linha}>
-            <div className={styles.campo}>
-              <label className="label">Plataforma</label>
-              <select
-                className="input"
-                value={form.plataforma}
-                onChange={(e) => atualizar('plataforma', e.target.value)}
-              >
-                {PLATAFORMAS.map((p) => (
-                  <option key={p} value={p}>{p}</option>
-                ))}
-              </select>
-            </div>
-
-            <div className={styles.campo}>
-              <label className="label">Gênero</label>
-              <select
-                className="input"
-                value={form.genero}
-                onChange={(e) => atualizar('genero', e.target.value)}
-              >
-                {generosData.map((g) => (
-                  <option key={g} value={g}>{g}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          {/* Status */}
-          <div className={styles.campo}>
-            <label className="label">Status</label>
-            <div className={styles.statusOpcoes}>
-              {STATUS_OPCOES.map((opcao) => (
-                <div
-                  key={opcao.value}
-                  className={`${styles.statusOpcao} ${form.status === opcao.value ? styles.statusOpcaoAtivo : ''}`}
-                  onClick={() => atualizar('status', opcao.value)}
-                >
-                  <StatusBadge status={opcao.value} />
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Nota */}
-          <div className={styles.campo}>
-            <label className="label">Nota</label>
-            <div className={styles.notaWrapper}>
-              <StarRating value={form.nota} onChange={(v) => atualizar('nota', v)} />
-              {form.nota > 0 && (
-                <span className={styles.notaTexto}>{form.nota}/5</span>
-              )}
-              {form.nota > 0 && (
-                <button
-                  className={`btn btn-ghost btn-sm ${styles.limparNota}`}
-                  onClick={() => atualizar('nota', 0)}
-                >
-                  Limpar
-                </button>
-              )}
-            </div>
-          </div>
-
-          {/* Horas jogadas */}
-          <div className={styles.campo}>
-            <label className="label">Horas jogadas</label>
-            <input
-              className="input"
-              type="number"
-              placeholder="0"
-              min="0"
-              value={form.horasJogadas}
-              onChange={(e) => atualizar('horasJogadas', e.target.value)}
-              style={{ maxWidth: '160px' }}
-            />
-          </div>
-
-          {/* Review */}
-          <div className={styles.campo}>
-            <label className="label">Anotação pessoal</label>
-            <textarea
-              className={`input ${styles.textarea}`}
-              placeholder="Suas impressões sobre o jogo..."
-              value={form.review}
-              onChange={(e) => atualizar('review', e.target.value)}
-              rows={4}
-            />
-          </div>
-
-          {/* Ações */}
-          <div className={styles.acoes}>
-            <button className="btn btn-ghost" onClick={() => tentarSair(modoEdicao ? `/jogo/${id}` : '/acervo')}>
-              Cancelar
-            </button>
-            <button className="btn" onClick={abrirModal}>
-              {modoEdicao ? 'Salvar Alterações' : 'Adicionar ao Vault'}
-            </button>
-          </div>
         </div>
       </main>
 
-      {/* Modal de confirmação */}
+      {/* Modal de confirmação de salvar */}
       {modalAberto && (
         <div className={styles.modalOverlay} onClick={() => setModalAberto(false)}>
           <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
