@@ -13,6 +13,7 @@ function App() {
         <Route path="/acervo" element={<Acervo />} />
         <Route path="/jogo/:id" element={<DetalheJogo />} />
         <Route path="/adicionar" element={<AdicionarJogo />} />
+        <Route path="/editar/:id" element={<AdicionarJogo />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

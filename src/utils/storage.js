@@ -19,3 +19,12 @@ export function addJogo(jogo) {
   saveJogos([...jogos, novo])
   return novo
 }
+
+export function updateJogo(id, dados) {
+  const jogos = getJogos()
+  saveJogos(jogos.map((j) => (j.id === id ? { ...j, ...dados } : j)))
+}
+
+export function deleteJogo(id) {
+  saveJogos(getJogos().filter((j) => j.id !== id))
+}

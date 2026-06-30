@@ -209,6 +209,99 @@
   gap: var(--space-md);
 }
 
+/* Ações (Voltar / Editar / Excluir) */
+.acoes {
+  display: flex;
+  gap: var(--space-sm);
+  margin-top: auto;
+  flex-wrap: wrap;
+}
+
+.btnExcluir {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 9px 20px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(192, 57, 43, 0.5);
+  background: transparent;
+  color: var(--color-status-abandonado);
+  cursor: pointer;
+  transition: var(--transition);
+}
+.btnExcluir:hover {
+  background: var(--color-status-abandonado);
+  color: #fff;
+  border-color: var(--color-status-abandonado);
+}
+
+/* Modal de exclusão */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: var(--color-bg-card);
+  border: var(--border-card-hover);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  max-width: 420px;
+  width: 90%;
+  text-align: center;
+  animation: fadeIn 0.2s ease forwards;
+}
+
+.modalIcon {
+  font-size: 40px;
+  display: block;
+  margin-bottom: var(--space-md);
+}
+
+.modalTitulo {
+  font-size: 20px;
+  margin-bottom: var(--space-sm);
+}
+
+.modalTexto {
+  color: var(--color-text-muted);
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: var(--space-lg);
+}
+
+.modalAcoes {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: center;
+}
+
+.btnExcluirConfirm {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 9px 20px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-status-abandonado);
+  background: var(--color-status-abandonado);
+  color: #fff;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.btnExcluirConfirm:hover {
+  opacity: 0.85;
+}
+
 /* Responsivo */
 @media (max-width: 768px) {
   .hero {

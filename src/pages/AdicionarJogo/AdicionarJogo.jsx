@@ -1,11 +1,11 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import Header from '../../components/Header/Header'
 import usePageTitle from '../../hooks/usePageTitle'
 import StatusBadge from '../../components/StatusBadge/StatusBadge'
 import StarRating from '../../components/StarRating/StarRating'
 import generosData from '../../data/generos.json'
-import { addJogo } from '../../utils/storage'
+import { addJogo, updateJogo, getJogos } from '../../utils/storage'
 import styles from './AdicionarJogo.module.css'
 
 const STATUS_OPCOES = [
@@ -28,12 +28,30 @@ const FORM_INICIAL = {
 }
 
 function AdicionarJogo() {
-  usePageTitle('Adicionar Jogo')
+  const { id } = useParams()
+  const modoEdicao = Boolean(id)
+  usePageTitle(modoEdicao ? 'Editar Jogo' : 'Adicionar Jogo')
   const navigate = useNavigate()
   const [form, setForm] = useState(FORM_INICIAL)
   const [erros, setErros] = useState({})
   const [modalAberto, setModalAberto] = useState(false)
   const [toastVisivel, setToastVisivel] = useState(false)
+
+  useEffect(() => {
+    if (!modoEdicao) return
+    const jogo = getJogos().find((j) => j.id === Number(id))
+    if (jogo) {
+      setForm({
+        nome: jogo.nome,
+        plataforma: jogo.plataforma,
+        genero: jogo.genero,
+        status: jogo.status,
+        nota: jogo.nota,
+        horasJogadas: jogo.horasJogadas || '',
+        review: jogo.review || '',
+      })
+    }
+  }, [id, modoEdicao])
 
   const atualizar = (campo, valor) => {
     setForm((prev) => ({ ...prev, [campo]: valor }))
@@ -56,7 +74,7 @@ function AdicionarJogo() {
   }
 
   const confirmarSalvar = () => {
-    addJogo({
+    const dados = {
       nome: form.nome.trim(),
       plataforma: form.plataforma,
       genero: form.genero,
@@ -64,13 +82,16 @@ function AdicionarJogo() {
       nota: Number(form.nota),
       horasJogadas: Number(form.horasJogadas) || 0,
       review: form.review.trim(),
-      capa: '',
-      anoLancamento: new Date().getFullYear(),
-    })
+    }
+    if (modoEdicao) {
+      updateJogo(Number(id), dados)
+    } else {
+      addJogo({ ...dados, capa: '', anoLancamento: new Date().getFullYear() })
+    }
     setModalAberto(false)
     setToastVisivel(true)
     setTimeout(() => {
-      navigate('/acervo')
+      navigate(modoEdicao ? `/jogo/${id}` : '/acervo')
     }, 1800)
   }
 
@@ -79,8 +100,8 @@ function AdicionarJogo() {
       <Header />
 
       <main className={styles.main}>
-        <h1 className={styles.titulo}>Adicionar Jogo</h1>
-        <p className={styles.subtitulo}>Registre uma nova aventura no vault</p>
+        <h1 className={styles.titulo}>{modoEdicao ? 'Editar Jogo' : 'Adicionar Jogo'}</h1>
+        <p className={styles.subtitulo}>{modoEdicao ? 'Atualize os dados da aventura' : 'Registre uma nova aventura no vault'}</p>
 
         <div className={styles.formWrapper}>
 
@@ -189,11 +210,11 @@ function AdicionarJogo() {
 
           {/* Ações */}
           <div className={styles.acoes}>
-            <button className="btn btn-ghost" onClick={() => navigate('/acervo')}>
+            <button className="btn btn-ghost" onClick={() => navigate(modoEdicao ? `/jogo/${id}` : '/acervo')}>
               Cancelar
             </button>
             <button className="btn" onClick={abrirModal}>
-              Adicionar ao Vault
+              {modoEdicao ? 'Salvar Alterações' : 'Adicionar ao Vault'}
             </button>
           </div>
         </div>
@@ -204,10 +225,12 @@ function AdicionarJogo() {
         <div className={styles.modalOverlay} onClick={() => setModalAberto(false)}>
           <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
             <span className={styles.modalIcon}>⚔️</span>
-            <h2 className={styles.modalTitulo}>Confirmar adição</h2>
+            <h2 className={styles.modalTitulo}>{modoEdicao ? 'Confirmar edição' : 'Confirmar adição'}</h2>
             <p className={styles.modalTexto}>
-              Tem certeza que deseja adicionar{' '}
-              <strong>"{form.nome}"</strong> ao vault?
+              {modoEdicao
+                ? <>Tem certeza que deseja salvar as alterações em <strong>"{form.nome}"</strong>?</>
+                : <>Tem certeza que deseja adicionar <strong>"{form.nome}"</strong> ao vault?</>
+              }
             </p>
             <div className={styles.modalAcoes}>
               <button className="btn btn-ghost" onClick={() => setModalAberto(false)}>
@@ -225,7 +248,7 @@ function AdicionarJogo() {
       {toastVisivel && (
         <div className={styles.toast}>
           <span>✓</span>
-          <span>"{form.nome}" adicionado ao vault com sucesso!</span>
+          <span>"{form.nome}" {modoEdicao ? 'atualizado' : 'adicionado ao vault'} com sucesso!</span>
         </div>
       )}
     </div>

@@ -5,7 +5,7 @@ import usePageTitle from '../../hooks/usePageTitle'
 import StatusBadge from '../../components/StatusBadge/StatusBadge'
 import StarRating from '../../components/StarRating/StarRating'
 import GameCard from '../../components/GameCard/GameCard'
-import { getJogos } from '../../utils/storage'
+import { getJogos, deleteJogo } from '../../utils/storage'
 import styles from './DetalheJogo.module.css'
 
 function DetalheJogo() {
@@ -13,6 +13,7 @@ function DetalheJogo() {
   const navigate = useNavigate()
   const [jogo, setJogo] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [modalExcluir, setModalExcluir] = useState(false)
   usePageTitle(jogo ? jogo.nome : 'Carregando...')
 
   useEffect(() => {
@@ -123,13 +124,17 @@ function DetalheJogo() {
               </div>
             )}
 
-            <button
-              className="btn"
-              onClick={() => navigate('/acervo')}
-              style={{ marginTop: 'auto' }}
-            >
-              ← Voltar ao Acervo
-            </button>
+            <div className={styles.acoes}>
+              <button className="btn btn-ghost" onClick={() => navigate('/acervo')}>
+                ← Voltar
+              </button>
+              <button className="btn" onClick={() => navigate(`/editar/${id}`)}>
+                ✎ Editar
+              </button>
+              <button className={styles.btnExcluir} onClick={() => setModalExcluir(true)}>
+                ✕ Excluir
+              </button>
+            </div>
           </div>
         </div>
 
@@ -150,6 +155,29 @@ function DetalheJogo() {
           </section>
         )}
       </main>
+
+      {modalExcluir && (
+        <div className={styles.modalOverlay} onClick={() => setModalExcluir(false)}>
+          <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+            <span className={styles.modalIcon}>⚠️</span>
+            <h2 className={styles.modalTitulo}>Excluir jogo</h2>
+            <p className={styles.modalTexto}>
+              Tem certeza que deseja remover <strong>"{jogo.nome}"</strong> do vault? Essa ação não pode ser desfeita.
+            </p>
+            <div className={styles.modalAcoes}>
+              <button className="btn btn-ghost" onClick={() => setModalExcluir(false)}>
+                Cancelar
+              </button>
+              <button
+                className={styles.btnExcluirConfirm}
+                onClick={() => { deleteJogo(Number(id)); navigate('/acervo') }}
+              >
+                Excluir
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
