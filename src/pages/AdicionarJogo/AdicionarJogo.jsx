@@ -25,6 +25,7 @@ const FORM_INICIAL = {
   nota: 0,
   horasJogadas: '',
   review: '',
+  capa: '',
 }
 
 function AdicionarJogo() {
@@ -36,6 +37,7 @@ function AdicionarJogo() {
   const [erros, setErros] = useState({})
   const [modalAberto, setModalAberto] = useState(false)
   const [toastVisivel, setToastVisivel] = useState(false)
+  const [capaErro, setCapaErro] = useState(false)
 
   useEffect(() => {
     if (!modoEdicao) return
@@ -49,7 +51,9 @@ function AdicionarJogo() {
         nota: jogo.nota,
         horasJogadas: jogo.horasJogadas || '',
         review: jogo.review || '',
+        capa: jogo.capa || '',
       })
+      setCapaErro(false)
     }
   }, [id, modoEdicao])
 
@@ -82,11 +86,12 @@ function AdicionarJogo() {
       nota: Number(form.nota),
       horasJogadas: Number(form.horasJogadas) || 0,
       review: form.review.trim(),
+      capa: form.capa.trim(),
     }
     if (modoEdicao) {
       updateJogo(Number(id), dados)
     } else {
-      addJogo({ ...dados, capa: '', anoLancamento: new Date().getFullYear() })
+      addJogo({ ...dados, anoLancamento: new Date().getFullYear() })
     }
     setModalAberto(false)
     setToastVisivel(true)
@@ -116,6 +121,42 @@ function AdicionarJogo() {
               onChange={(e) => atualizar('nome', e.target.value)}
             />
             {erros.nome && <span className={styles.erroMsg}>{erros.nome}</span>}
+          </div>
+
+          {/* Capa */}
+          <div className={styles.campo}>
+            <label className="label">URL da capa</label>
+            <div className={styles.capaWrapper}>
+              <div className={styles.capaInputCol}>
+                <input
+                  className="input"
+                  type="url"
+                  placeholder="https://exemplo.com/capa.jpg"
+                  value={form.capa}
+                  onChange={(e) => { atualizar('capa', e.target.value); setCapaErro(false) }}
+                />
+                <span className={styles.capaHint}>
+                  Cole a URL de uma imagem para ver o preview em tempo real
+                </span>
+              </div>
+              <div className={`${styles.capaPreview} ${form.capa && !capaErro ? styles.capaPreviewOk : ''}`}>
+                {form.capa && !capaErro ? (
+                  <img
+                    src={form.capa}
+                    alt="Preview da capa"
+                    className={styles.capaPreviewImg}
+                    onError={() => setCapaErro(true)}
+                  />
+                ) : (
+                  <div className={styles.capaPreviewPlaceholder}>
+                    <span className={styles.capaPreviewIcon}>{capaErro ? '✕' : '🖼'}</span>
+                    <span className={styles.capaPreviewLabel}>
+                      {capaErro ? 'URL inválida' : 'Preview'}
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
 
           {/* Plataforma e Gênero */}

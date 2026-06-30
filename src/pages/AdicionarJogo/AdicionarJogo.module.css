@@ -54,6 +54,81 @@
   letter-spacing: 0.5px;
 }
 
+/* Capa com preview */
+.capaWrapper {
+  display: grid;
+  grid-template-columns: 1fr 120px;
+  gap: var(--space-md);
+  align-items: start;
+}
+
+.capaInputCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.capaHint {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  opacity: 0.75;
+  letter-spacing: 0.3px;
+}
+
+.capaPreview {
+  width: 120px;
+  height: 160px;
+  border-radius: var(--radius-md);
+  border: var(--border-card);
+  background: var(--color-bg-hover);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+
+.capaPreviewOk {
+  border-color: rgba(201, 168, 76, 0.5);
+  box-shadow: var(--shadow-card);
+}
+
+.capaPreviewImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  animation: fadeIn 0.35s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.capaPreviewPlaceholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.capaPreviewIcon {
+  font-size: 28px;
+  opacity: 0.3;
+  line-height: 1;
+}
+
+.capaPreviewLabel {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-text-muted);
+  opacity: 0.5;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+
 /* Status */
 .statusOpcoes {
   display: flex;
@@ -199,6 +274,15 @@
 
   .linha {
     grid-template-columns: 1fr;
+  }
+
+  .capaWrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .capaPreview {
+    width: 100%;
+    height: 180px;
   }
 
   .acoes {
