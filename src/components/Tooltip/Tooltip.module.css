@@ -1,0 +1,64 @@
+.wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Renderizado via portal no body — nunca sofre overflow:hidden */
+.tip {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+
+  background: #1A1520;
+  border: 1px solid rgba(201, 168, 76, 0.4);
+  border-radius: 4px;
+  padding: 5px 11px;
+
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  color: #E8D5A3;
+  white-space: nowrap;
+
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
+  animation: tipEntra 0.14s ease forwards;
+}
+
+@keyframes tipEntra {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Acima do elemento — sobe 100% da própria altura + 10px de gap */
+.top {
+  transform: translateX(-50%) translateY(calc(-100% - 10px));
+}
+
+/* Abaixo do elemento — desce 10px a partir da borda inferior */
+.bottom {
+  transform: translateX(-50%) translateY(10px);
+}
+
+/* Seta (quadrado rotacionado) */
+.tip::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 7px;
+  height: 7px;
+  background: #1A1520;
+}
+
+.top::after {
+  bottom: -4px;
+  border-right: 1px solid rgba(201, 168, 76, 0.4);
+  border-bottom: 1px solid rgba(201, 168, 76, 0.4);
+}
+
+.bottom::after {
+  top: -4px;
+  border-left:  1px solid rgba(201, 168, 76, 0.4);
+  border-top:   1px solid rgba(201, 168, 76, 0.4);
+}

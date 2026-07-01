@@ -6,6 +6,7 @@ import useJogos from '../../hooks/useJogos'
 import StatusBadge from '../../components/StatusBadge/StatusBadge'
 import StarRating from '../../components/StarRating/StarRating'
 import GameCard from '../../components/GameCard/GameCard'
+import Tooltip from '../../components/Tooltip/Tooltip'
 import { deleteJogo } from '../../utils/storage'
 import styles from './DetalheJogo.module.css'
 
@@ -129,15 +130,21 @@ function DetalheJogo() {
             )}
 
             <div className={styles.acoes}>
-              <button className="btn btn-ghost" onClick={() => navigate('/acervo')}>
-                ← Voltar
-              </button>
-              <button className="btn" onClick={() => navigate(`/editar/${id}`)}>
-                ✎ Editar
-              </button>
-              <button className={styles.btnExcluir} onClick={() => setModalExcluir(true)}>
-                ✕ Excluir
-              </button>
+              <Tooltip text="Voltar ao acervo" position="top">
+                <button className="btn btn-ghost" onClick={() => navigate('/acervo')}>
+                  ← Voltar
+                </button>
+              </Tooltip>
+              <Tooltip text="Editar informações do jogo" position="top">
+                <button className="btn" onClick={() => navigate(`/editar/${id}`)}>
+                  ✎ Editar
+                </button>
+              </Tooltip>
+              <Tooltip text="Remover do vault permanentemente" position="top">
+                <button className={styles.btnExcluir} onClick={() => setModalExcluir(true)}>
+                  ✕ Excluir
+                </button>
+              </Tooltip>
             </div>
           </div>
         </div>

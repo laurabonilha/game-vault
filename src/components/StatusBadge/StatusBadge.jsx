@@ -1,3 +1,4 @@
+import Tooltip from '../Tooltip/Tooltip'
 import styles from './StatusBadge.module.css'
 
 const STATUS_CONFIG = {
@@ -11,13 +12,12 @@ function StatusBadge({ status }) {
   const config = STATUS_CONFIG[status] || STATUS_CONFIG['querjogar']
 
   return (
-    <span
-      className={`${styles.badge} ${styles[status]}`}
-      title={config.tooltip}
-    >
-      <span className={styles.icon}>{config.icon}</span>
-      {config.label}
-    </span>
+    <Tooltip text={config.tooltip} position="top">
+      <span className={`${styles.badge} ${styles[status]}`}>
+        <span className={styles.icon}>{config.icon}</span>
+        {config.label}
+      </span>
+    </Tooltip>
   )
 }
 

@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom'
 import useTheme from '../../hooks/useTheme'
+import Tooltip from '../Tooltip/Tooltip'
 import styles from './Header.module.css'
 
 function Header() {
@@ -53,14 +54,15 @@ function Header() {
             + Adicionar
           </Link>
 
-          <button
-            className={styles.themeToggle}
-            onClick={alternarTema}
-            title={tema === 'dark' ? 'Mudar para tema claro' : 'Mudar para tema escuro'}
-            aria-label={tema === 'dark' ? 'Mudar para tema claro' : 'Mudar para tema escuro'}
-          >
-            {tema === 'dark' ? '☀' : '☾'}
-          </button>
+          <Tooltip text={tema === 'dark' ? 'Mudar para tema claro' : 'Mudar para tema escuro'} position="bottom">
+            <button
+              className={styles.themeToggle}
+              onClick={alternarTema}
+              aria-label={tema === 'dark' ? 'Mudar para tema claro' : 'Mudar para tema escuro'}
+            >
+              {tema === 'dark' ? '☀' : '☾'}
+            </button>
+          </Tooltip>
         </nav>
 
       </div>
