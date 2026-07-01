@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Header from '../../components/Header/Header'
 import usePageTitle from '../../hooks/usePageTitle'
 import useJogos from '../../hooks/useJogos'
+import useDebounce from '../../hooks/useDebounce'
 import GameCard from '../../components/GameCard/GameCard'
 import FilterChip from '../../components/FilterChip/FilterChip'
 import EmptyState from '../../components/EmptyState/EmptyState'
@@ -36,6 +37,7 @@ function Acervo() {
   usePageTitle('Acervo')
   const { jogos, loading } = useJogos()
   const [busca, setBusca] = useState('')
+  const buscaDebounced = useDebounce(busca, 300)
   const [statusAtivo, setStatusAtivo] = useState('todos')
   const [generoAtivo, setGeneroAtivo] = useState('todos')
   const [plataformaAtiva, setPlataformaAtiva] = useState('todas')
@@ -45,7 +47,7 @@ function Acervo() {
 
   const jogosFiltrados = jogos
     .filter((jogo) => {
-      const matchBusca = jogo.nome.toLowerCase().includes(busca.toLowerCase())
+      const matchBusca = jogo.nome.toLowerCase().includes(buscaDebounced.toLowerCase())
       const matchStatus = statusAtivo === 'todos' || jogo.status === statusAtivo
       const matchGenero = generoAtivo === 'todos' || jogo.genero === generoAtivo
       const matchPlataforma = plataformaAtiva === 'todas' || jogo.plataforma === plataformaAtiva
@@ -55,21 +57,21 @@ function Acervo() {
 
   // Contadores facetados: cada dimensão ignora o próprio filtro mas respeita os outros
   const contarStatus = (status) => jogos.filter((j) => {
-    const matchBusca = j.nome.toLowerCase().includes(busca.toLowerCase())
+    const matchBusca = j.nome.toLowerCase().includes(buscaDebounced.toLowerCase())
     const matchGenero = generoAtivo === 'todos' || j.genero === generoAtivo
     const matchPlataforma = plataformaAtiva === 'todas' || j.plataforma === plataformaAtiva
     return matchBusca && matchGenero && matchPlataforma && (status === 'todos' || j.status === status)
   }).length
 
   const contarGenero = (genero) => jogos.filter((j) => {
-    const matchBusca = j.nome.toLowerCase().includes(busca.toLowerCase())
+    const matchBusca = j.nome.toLowerCase().includes(buscaDebounced.toLowerCase())
     const matchStatus = statusAtivo === 'todos' || j.status === statusAtivo
     const matchPlataforma = plataformaAtiva === 'todas' || j.plataforma === plataformaAtiva
     return matchBusca && matchStatus && matchPlataforma && (genero === 'todos' || j.genero === genero)
   }).length
 
   const contarPlataforma = (plataforma) => jogos.filter((j) => {
-    const matchBusca = j.nome.toLowerCase().includes(busca.toLowerCase())
+    const matchBusca = j.nome.toLowerCase().includes(buscaDebounced.toLowerCase())
     const matchStatus = statusAtivo === 'todos' || j.status === statusAtivo
     const matchGenero = generoAtivo === 'todos' || j.genero === generoAtivo
     return matchBusca && matchStatus && matchGenero && (plataforma === 'todas' || j.plataforma === plataforma)
