@@ -53,7 +53,7 @@ function buildSlides(jogos) {
   if (avaliado) slides.push({
     ...defaults, tag: '★ Mais avaliado', watermark: '★',
     titulo: avaliado.nome, capa: avaliado.capa, estrelas: avaliado.nota,
-    descricao: 'Sua aventura mais apreciada, gravada em ouro nos anais do vault.',
+    descricao: 'Sua aventura mais apreciada, gravada em ouro nos arquivos do vault.',
     meta: metaJogo(avaliado), status: avaliado.status, destino: `/jogo/${avaliado.id}`,
   })
 
