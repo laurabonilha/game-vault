@@ -89,7 +89,10 @@ function Acervo() {
       <Header />
 
       <main className={styles.main}>
-        <h1 className={styles.titulo}>Acervo</h1>
+        <div className={styles.pageHeader}>
+          <h1 className={styles.titulo}>Acervo</h1>
+          <p className={styles.subtitulo}>O grimório completo das suas aventuras</p>
+        </div>
 
         {/* Busca + Ordenação */}
         <div className={styles.controles}>

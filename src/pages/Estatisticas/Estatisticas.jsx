@@ -64,8 +64,10 @@ function Estatisticas() {
       <Header />
 
       <main className={styles.main}>
-        <h1 className={styles.titulo}>Estatísticas</h1>
-        <p className={styles.subtitulo}>Um mapa da sua jornada pelo vault</p>
+        <div className={styles.pageHeader}>
+          <h1 className={styles.titulo}>Estatísticas</h1>
+          <p className={styles.subtitulo}>Um mapa da sua jornada pelo vault</p>
+        </div>
 
         {loading ? (
           <div className="loader" style={{ paddingTop: '80px' }}>

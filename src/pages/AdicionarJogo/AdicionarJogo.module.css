@@ -12,6 +12,7 @@
 /* ─── Cabeçalho da página ─────────────────────────── */
 
 .pageHeader {
+  text-align: center;
   margin-bottom: var(--space-xl);
 }
 

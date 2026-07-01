@@ -9,19 +9,24 @@
   padding: 100px var(--space-lg) var(--space-xl);
 }
 
-.titulo {
-  font-size: 32px;
-  letter-spacing: 4px;
+.pageHeader {
   text-align: center;
-  margin-bottom: var(--space-sm);
+  margin-bottom: var(--space-xl);
+}
+
+.titulo {
+  font-family: var(--font-title);
+  font-size: 32px;
+  color: var(--color-text-title);
+  letter-spacing: 4px;
+  margin-bottom: var(--space-xs);
 }
 
 .subtitulo {
-  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 17px;
   color: var(--color-text-muted);
-  font-size: 14px;
   letter-spacing: 1px;
-  margin-bottom: var(--space-xl);
 }
 
 /* Estado vazio */
