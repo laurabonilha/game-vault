@@ -12,65 +12,105 @@
   padding: 80px var(--space-lg) var(--space-xl);
   text-align: center;
   gap: var(--space-lg);
+  position: relative;
+  isolation: isolate;
 }
 
-/* 404 fantasma */
+/* ── Vinheta atmosférica — calor da fogueira nas bordas ── */
+.main::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 70% 55% at 50% 62%,
+    transparent 25%,
+    rgba(140, 40, 10, 0.15) 55%,
+    rgba(80, 15, 5, 0.35) 100%
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ── 404 fantasma centralizado ── */
 .codigo {
   font-family: var(--font-title);
-  font-size: clamp(80px, 18vw, 160px);
+  font-size: clamp(120px, 24vw, 220px);
   color: var(--color-gold);
-  opacity: 0.06;
+  opacity: 0.045;
   line-height: 1;
-  position: absolute;
-  pointer-events: none;
   letter-spacing: 12px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: -1;
 }
 
-/* Você morreu */
+/* ── GAME OVER — entrada cinematográfica ── */
 .morreu {
   font-family: var(--font-title);
-  font-size: clamp(22px, 5vw, 36px);
+  font-size: clamp(26px, 5vw, 44px);
   color: var(--color-error);
-  letter-spacing: 8px;
-  opacity: 0.9;
-  animation: flicker 3s ease-in-out infinite;
+  letter-spacing: 10px;
+  animation:
+    aparecer 2.6s ease forwards,
+    flicker  3s ease-in-out 2.6s infinite;
+}
+
+@keyframes aparecer {
+  0%   { opacity: 0; letter-spacing: 24px; }
+  45%  { opacity: 0; letter-spacing: 24px; }
+  100% { opacity: 0.92; letter-spacing: 10px; }
 }
 
 @keyframes flicker {
-  0%, 100% { opacity: 0.9; }
-  45%       { opacity: 0.9; }
-  50%       { opacity: 0.4; }
-  55%       { opacity: 0.9; }
-  75%       { opacity: 0.9; }
-  80%       { opacity: 0.6; }
-  85%       { opacity: 0.9; }
+  0%, 100% { opacity: 0.92; }
+  45%       { opacity: 0.92; }
+  50%       { opacity: 0.32; }
+  55%       { opacity: 0.92; }
+  78%       { opacity: 0.92; }
+  82%       { opacity: 0.52; }
+  86%       { opacity: 0.92; }
 }
 
-/* Cena da fogueira */
+/* ── Cena principal ── */
 .cena {
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  gap: 20px;
-  height: 120px;
-  position: relative;
+  gap: 40px;
+  height: 200px;
 }
 
+/* ── Guerreiros ── */
 .guerreiro {
-  font-size: 52px;
-  filter: brightness(0.5) sepia(1) hue-rotate(0deg);
-  opacity: 0.7;
-  transform: scaleX(-1);
-  animation: respirar 4s ease-in-out infinite;
+  font-size: 68px;
+  line-height: 1;
   align-self: flex-end;
+  opacity: 0.72;
+  filter: brightness(0.38) sepia(1) saturate(0.4);
 }
 
-@keyframes respirar {
+.guerreiroEsq {
+  animation: respirarEsq 4.5s ease-in-out infinite;
+}
+
+.guerreiroDir {
+  animation: respirarDir 4.5s ease-in-out 2.2s infinite;
+}
+
+@keyframes respirarEsq {
+  0%, 100% { transform: scaleX(1) translateY(0); }
+  50%       { transform: scaleX(1) translateY(-5px); }
+}
+
+@keyframes respirarDir {
   0%, 100% { transform: scaleX(-1) translateY(0); }
-  50%       { transform: scaleX(-1) translateY(-3px); }
+  50%       { transform: scaleX(-1) translateY(-5px); }
 }
 
-/* Fogueira */
+/* ── Fogueira ── */
 .fogueiraWrapper {
   position: relative;
   display: flex;
@@ -78,10 +118,42 @@
   align-items: center;
 }
 
+/* ── Brasas flutuando ── */
+.embersContainer {
+  position: absolute;
+  bottom: 58px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 130px;
+  pointer-events: none;
+}
+
+.ember {
+  position: absolute;
+  border-radius: 50%;
+  bottom: 0;
+}
+
+.ember1 { width: 3px; height: 3px; left: 48%; background: #F0C040; box-shadow: 0 0 3px rgba(240,192,64,0.7); animation: ember1 2.3s ease-in infinite; }
+.ember2 { width: 2px; height: 2px; left: 38%; background: #E6A817; box-shadow: 0 0 3px rgba(230,168,23,0.6); animation: ember2 1.9s ease-in 0.5s infinite; }
+.ember3 { width: 3px; height: 3px; left: 62%; background: #F0C040; box-shadow: 0 0 3px rgba(240,192,64,0.7); animation: ember3 2.7s ease-in 0.9s infinite; }
+.ember4 { width: 2px; height: 2px; left: 32%; background: #fff5c0; box-shadow: 0 0 3px rgba(255,245,192,0.6); animation: ember4 2.1s ease-in 1.4s infinite; }
+.ember5 { width: 3px; height: 3px; left: 56%; background: #F0C040; box-shadow: 0 0 3px rgba(240,192,64,0.7); animation: ember5 1.7s ease-in 1.8s infinite; }
+.ember6 { width: 2px; height: 2px; left: 44%; background: #E6A817; box-shadow: 0 0 3px rgba(230,168,23,0.6); animation: ember6 2.5s ease-in 2.2s infinite; }
+
+@keyframes ember1 { 0% { transform: translate(0,0);    opacity:0.9; } 100% { transform: translate(-15px,-120px); opacity:0; } }
+@keyframes ember2 { 0% { transform: translate(0,0);    opacity:0.8; } 100% { transform: translate(19px, -95px);  opacity:0; } }
+@keyframes ember3 { 0% { transform: translate(0,0);    opacity:0.9; } 100% { transform: translate(-9px, -130px); opacity:0; } }
+@keyframes ember4 { 0% { transform: translate(0,0);    opacity:0.7; } 100% { transform: translate(22px, -85px);  opacity:0; } }
+@keyframes ember5 { 0% { transform: translate(0,0);    opacity:0.85;} 100% { transform: translate(-20px,-110px); opacity:0; } }
+@keyframes ember6 { 0% { transform: translate(0,0);    opacity:0.75;} 100% { transform: translate(12px,-100px); opacity:0; } }
+
+/* ── Chamas ── */
 .chamas {
   position: relative;
-  width: 40px;
-  height: 70px;
+  width: 52px;
+  height: 88px;
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -95,93 +167,102 @@
 }
 
 .chama1 {
-  width: 24px;
-  height: 60px;
+  width: 30px; height: 75px;
   background: linear-gradient(to top, #E6A817, #C0392B);
   animation: queimar1 1.2s ease-in-out infinite alternate;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 50%; transform: translateX(-50%);
   opacity: 0.95;
 }
 
 .chama2 {
-  width: 16px;
-  height: 48px;
+  width: 20px; height: 60px;
   background: linear-gradient(to top, #F0C040, #E6A817);
   animation: queimar2 0.9s ease-in-out infinite alternate;
-  left: 50%;
-  transform: translateX(-60%);
+  left: 50%; transform: translateX(-62%);
   opacity: 0.85;
 }
 
 .chama3 {
-  width: 14px;
-  height: 36px;
+  width: 16px; height: 46px;
   background: linear-gradient(to top, #fff5c0, #F0C040);
   animation: queimar3 1.5s ease-in-out infinite alternate;
-  left: 50%;
-  transform: translateX(-30%);
+  left: 50%; transform: translateX(-28%);
   opacity: 0.9;
 }
 
 .brasa {
   position: absolute;
   bottom: 2px;
-  width: 30px;
-  height: 8px;
+  width: 38px; height: 10px;
   background: radial-gradient(ellipse, #F0C040, #C0392B 60%, transparent);
   border-radius: 50%;
-  animation: brasa 1s ease-in-out infinite alternate;
+  animation: brasaAnim 1s ease-in-out infinite alternate;
   z-index: 2;
 }
 
 @keyframes queimar1 {
-  0%   { height: 60px; transform: translateX(-50%) rotate(-3deg); }
-  100% { height: 50px; transform: translateX(-50%) rotate(3deg); }
+  0%   { height: 75px; transform: translateX(-50%) rotate(-3deg); }
+  100% { height: 60px; transform: translateX(-50%) rotate(3deg); }
 }
 @keyframes queimar2 {
-  0%   { height: 48px; transform: translateX(-60%) rotate(5deg); }
-  100% { height: 38px; transform: translateX(-50%) rotate(-4deg); }
+  0%   { height: 60px; transform: translateX(-62%) rotate(5deg); }
+  100% { height: 46px; transform: translateX(-52%) rotate(-4deg); }
 }
 @keyframes queimar3 {
-  0%   { height: 36px; transform: translateX(-30%) rotate(-6deg); }
-  100% { height: 28px; transform: translateX(-40%) rotate(4deg); }
+  0%   { height: 46px; transform: translateX(-28%) rotate(-6deg); }
+  100% { height: 34px; transform: translateX(-38%) rotate(4deg); }
 }
-@keyframes brasa {
-  0%   { opacity: 0.8; width: 30px; }
-  100% { opacity: 1;   width: 36px; }
+@keyframes brasaAnim {
+  0%   { opacity: 0.8; width: 38px; }
+  100% { opacity: 1;   width: 48px; }
 }
 
 .tronco {
-  width: 48px;
-  height: 10px;
+  width: 60px; height: 12px;
   background: linear-gradient(to right, #3d2b1f, #5c3d2a, #3d2b1f);
-  border-radius: 4px;
+  border-radius: 5px;
   position: relative;
   z-index: 3;
 }
 
 .glow {
-  width: 80px;
-  height: 20px;
-  background: radial-gradient(ellipse, rgba(240,192,64,0.3), transparent 70%);
+  width: 110px; height: 26px;
+  background: radial-gradient(ellipse, rgba(240,192,64,0.32), transparent 70%);
   border-radius: 50%;
   margin-top: -4px;
   animation: brilho 1.2s ease-in-out infinite alternate;
 }
 
 @keyframes brilho {
-  0%   { opacity: 0.6; transform: scaleX(0.9); }
-  100% { opacity: 1;   transform: scaleX(1.1); }
+  0%   { opacity: 0.6; transform: scaleX(0.88); }
+  100% { opacity: 1;   transform: scaleX(1.18); }
 }
 
-/* Textos */
+/* ── Linha de chão ── */
+.chao {
+  width: 340px;
+  max-width: 90vw;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(201, 168, 76, 0.12) 20%,
+    rgba(201, 168, 76, 0.28) 50%,
+    rgba(201, 168, 76, 0.12) 80%,
+    transparent
+  );
+  margin-top: calc(-1 * var(--space-md));
+}
+
+/* ── Textos e botão — surgem após a cena ── */
 .titulo {
   font-family: var(--font-title);
   font-size: clamp(18px, 3vw, 26px);
   color: var(--color-text-title);
   letter-spacing: 2px;
   max-width: 480px;
+  text-wrap: balance;
+  animation: surgir 1s ease 1.8s both;
 }
 
 .mensagem {
@@ -189,5 +270,15 @@
   font-size: 17px;
   color: var(--color-text-muted);
   max-width: 440px;
-  line-height: 1.7;
+  line-height: 1.75;
+  animation: surgir 1s ease 2.1s both;
+}
+
+.btnVoltar {
+  animation: surgir 1s ease 2.4s both;
+}
+
+@keyframes surgir {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
 }

@@ -14,10 +14,22 @@ function NotFound() {
       <main className={styles.main}>
         <p className={styles.codigo}>404</p>
 
-        {/* Fogueira CSS */}
+        <div className={styles.morreu}>GAME OVER</div>
+
+        {/* Cena da fogueira */}
         <div className={styles.cena}>
-          <div className={styles.guerreiro}>🧎</div>
+
           <div className={styles.fogueiraWrapper}>
+            {/* Brasas flutuando */}
+            <div className={styles.embersContainer}>
+              <div className={`${styles.ember} ${styles.ember1}`} />
+              <div className={`${styles.ember} ${styles.ember2}`} />
+              <div className={`${styles.ember} ${styles.ember3}`} />
+              <div className={`${styles.ember} ${styles.ember4}`} />
+              <div className={`${styles.ember} ${styles.ember5}`} />
+              <div className={`${styles.ember} ${styles.ember6}`} />
+            </div>
+
             <div className={styles.chamas}>
               <div className={`${styles.chama} ${styles.chama1}`} />
               <div className={`${styles.chama} ${styles.chama2}`} />
@@ -27,9 +39,11 @@ function NotFound() {
             <div className={styles.tronco} />
             <div className={styles.glow} />
           </div>
+
         </div>
 
-        <div className={styles.morreu}>GAME OVER</div>
+        {/* Linha de chão */}
+        <div className={styles.chao} />
 
         <h1 className={styles.titulo}>Esta página não existe, guerreiro</h1>
         <p className={styles.mensagem}>
@@ -37,7 +51,7 @@ function NotFound() {
           talvez nunca tenha existido, ou foi consumida pela escuridão.
         </p>
 
-        <button className="btn" onClick={() => navigate('/')}>
+        <button className={`btn ${styles.btnVoltar}`} onClick={() => navigate('/')}>
           ⚔ Retornar à Fogueira Principal
         </button>
       </main>
